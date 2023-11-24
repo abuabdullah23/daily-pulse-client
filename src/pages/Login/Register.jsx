@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LottieComp from '../../components/LottieCom/LottieComp';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import Loader from '../../components/Loader/Loader';
 import BackToHome from '../../components/BackToHome/BackToHome';
@@ -15,6 +15,11 @@ import { saveUser } from '../../api/auth';
 const Register = () => {
     const { loading, setLoading, createUser, handleUpdateProfile } = useAuth();
     const [seePass, setSeePass] = useState(false);
+
+    // redirect after login to target page
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     // handle registration form value
     const handleRegister = async (event) => {
@@ -49,6 +54,8 @@ const Register = () => {
                         handleUpdateProfile(name, imgUrl)
                             .then(() => {
                                 toast.success('Successfully Signed Up!')
+                                navigate(from, { replace: true });
+
                                 // save user in mongoDB
                                 saveUser(result?.user)
                             })

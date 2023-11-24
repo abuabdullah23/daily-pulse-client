@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useState } from "react";
@@ -14,6 +14,12 @@ const Login = () => {
     const { loading, setLoading, user, login } = useAuth();
     const [seePass, setSeePass] = useState(false);
 
+    // redirect after login to target page
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
+
+
     // handle login form value
     const handleLogin = (event) => {
         event.preventDefault();
@@ -25,6 +31,7 @@ const Login = () => {
             .then(res => {
                 toast.success('Login Successful!');
                 setLoading(false);
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 toast.error(error.message);
