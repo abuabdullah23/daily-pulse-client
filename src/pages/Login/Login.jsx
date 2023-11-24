@@ -6,9 +6,11 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import loginAnimation from '../../assets/images/lottie/login_animation.json'
 import LottieComp from "../../components/LottieCom/LottieComp";
 import BackToHome from "../../components/BackToHome/BackToHome";
+import useAuth from "../../hooks/useAuth";
+import FadeLoader from 'react-spinners/FadeLoader'
 
 const Login = () => {
-    const loader = false;
+    const { loading, setLoading, user } = useAuth();
     const [seePass, setSeePass] = useState(false);
 
     // handle login form value
@@ -26,6 +28,11 @@ const Login = () => {
 
     return (
         <div>
+            {
+                loading && <div className='w-screen h-screen flex justify-center items-center fixed left-0 top-0 bg-[#38303033] z-[999]'>
+                    <FadeLoader />
+                </div>
+            }
             <BackToHome />
             <div className='py-5 flex items-center justify-center'>
                 <div className='w-full justify-center items-center p-5 md:p-10'>
@@ -57,11 +64,11 @@ const Login = () => {
 
                                     {/* submit button */}
                                     <button
-                                        disabled={loader ? true : false}
+                                        disabled={loading ? true : false}
                                         type="submit"
-                                        className={`px-8 w-full py-2 bg-orange-500 shadow-lg hover:shadow-orange-500/30 text-white rounded-md ${loader && 'bg-orange-400'} `}>
+                                        className={`px-8 w-full py-2 bg-orange-500 shadow-lg hover:shadow-orange-500/30 text-white rounded-md ${loading && 'bg-orange-400'} `}>
                                         {
-                                            loader ? <Loader loadingText={'Logging in'} /> : 'Login'
+                                            loading ? <Loader loadingText={'Logging in'} /> : 'Login'
                                         }
                                     </button>
                                 </form>

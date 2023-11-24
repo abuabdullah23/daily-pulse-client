@@ -9,13 +9,28 @@ import logoDark from '../../../assets/images/logo/logo-dark.png'
 import smallLogoLight from '../../../assets/images/logo/favicon.png'
 import smallLogoDark from '../../../assets/images/logo/favicon-dark.png'
 import DarkMode from '../../ThemeToggle/ThemeToggle';
+import useAuth from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
-    const user = null;
+    const { user, logOut, setLoading } = useAuth();
     const [show, setShow] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem("theme") || "dark";
     });
+
+    // handleLogOut
+    const handleLogOut = () => {
+        logOut()
+            .then(res => {
+                toast.success('Log Out Successful!');
+                setLoading(false);
+            })
+            .catch(error => {
+                toast.error(error.message);
+                setLoading(false);
+            })
+    }
 
     return (
         <div className='sticky top-0 z-10 shadow py-3 bg-[var(--secondary)]'>
@@ -25,7 +40,7 @@ const Navbar = () => {
                         <img className='h-8' src={theme === 'dark' ? logoDark : logoLight} alt="logo image" />
                     </Link>
 
-                    <div onClick={() => setShow(!show)} className='lg:hidden p-2 rounded bg-orange-500 text-white'>
+                    <div onClick={() => setShow(!show)} className='lg:hidden p-2 rounded bg-orange-500 text-white cursor-pointer'>
                         <FaList />
                     </div>
 
@@ -34,7 +49,7 @@ const Navbar = () => {
                     </Link>
 
                     {/* show only from medium device */}
-                    <div className={`${show ? 'absolute bg-white z-20 w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
+                    <div className={`${show ? 'absolute bg-[var(--body)] z-20 w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
                         <ul className='flex flex-col items-start gap-2 font-semibold'>
                             {
                                 allNav.map((nav) => <li key={nav.id} onClick={() => setShow(false)}>
@@ -60,13 +75,12 @@ const Navbar = () => {
                     </div>
 
                     <div className='flex items-center gap-3'>
-                    
                         <DarkMode theme={theme} setTheme={setTheme} />
                         {
                             user ? <>
                                 <div className='flex items-center gap-3'>
-                                    <img className='h-8 w-8 rounded-full' src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="user image" />
-                                    <button className='text-gray-600 hover:text-red-500 font-semibold'>Log Out</button>
+                                    <img className='h-8 w-8 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                    <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-orange-500 font-semibold'>Log Out</button>
                                 </div>
                             </> : <>
                                 <Link className='text-gray-600 dark:text-gray-100 hover:text-orange-500 font-semibold' to={'/login'}>Log In</Link>

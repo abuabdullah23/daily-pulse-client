@@ -6,28 +6,71 @@ import Loader from '../../components/Loader/Loader';
 import BackToHome from '../../components/BackToHome/BackToHome';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import registerAnimation from '../../assets/images/lottie/register_animation.json'
+import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
+import { imageUpload } from '../../utils/imageUpload';
+import { FadeLoader } from 'react-spinners';
+import { saveUser } from '../../api/auth';
 
 const Register = () => {
-    const loader = false;
+    const { loading, setLoading, createUser, handleUpdateProfile } = useAuth();
     const [seePass, setSeePass] = useState(false);
 
     // handle registration form value
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const registerData = {
-            name,
-            email,
-            password,
+
+        // condition for strong password
+        if (password.length < 6) {
+            toast.error('Password must be 6 characters.')
+            return;
+        } else if (!/(?=.*[A-Z])/.test(password)) {
+            toast.error('Please include one capital letter.');
+            return;
+        } else if (!/(?=.*[!@#$&*])/.test(password)) {
+            toast.error('Please add a special character.');
+            return;
+        } else if (!/(?=.*\d)/.test(password)) {
+            toast.error('Please add a numeric number.');
+            return;
         }
-        console.log(registerData);
+
+        // image Upload
+        const image = event.target.image.files[0];
+        imageUpload(image) // call from utils.js for no repeat same code
+            .then(data => {
+                const imgUrl = data.data.display_url;
+                createUser(email, password)
+                    .then(result => {
+                        handleUpdateProfile(name, imgUrl)
+                            .then(() => {
+                                toast.success('Successfully Signed Up!')
+                                // save user in mongoDB
+                                saveUser(result?.user)
+                            })
+                            .catch(error => {
+                                toast.error(error.message)
+                                setLoading(false)
+                            })
+                    })
+                    .catch(error => {
+                        toast.error(error.message)
+                        setLoading(false)
+                    })
+            })
     }
 
     return (
         <div>
+            {
+                loading && <div className='w-screen h-screen flex justify-center items-center fixed left-0 top-0 bg-[#38303033] z-[999]'>
+                    <FadeLoader />
+                </div>
+            }
             <BackToHome />
             <div className='py-5 flex items-center justify-center'>
                 <div className='w-full justify-center items-center p-5 md:p-10'>
@@ -60,13 +103,17 @@ const Register = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className='mb-2'>
+                                        <label htmlFor='image' className='block mb-2'> Select Image: </label>
+                                        <input required type='file' id='image' name='image' accept='image/*' />
+                                    </div>
                                     {/* submit button */}
                                     <button
-                                        disabled={loader ? true : false}
+                                        disabled={loading ? true : false}
                                         type="submit"
-                                        className={`px-8 w-full py-2 bg-orange-500 shadow-lg hover:shadow-orange-500/30 text-white rounded-md ${loader && 'bg-orange-400'} `}>
+                                        className={`px-8 mt-2 w-full py-2 bg-orange-500 shadow-lg hover:shadow-orange-500/30 text-white rounded-md ${loading && 'bg-orange-400'} `}>
                                         {
-                                            loader ? <Loader loadingText={'Processing'} /> : 'Register'
+                                            loading ? <Loader loadingText={'Processing'} /> : 'Register'
                                         }
                                     </button>
                                 </form>

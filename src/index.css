@@ -17,7 +17,7 @@
 body {
   background-color: var(--body);
   color: var(--primary-text);
-  transition: color 300ms ease;
+  transition: color 500ms ease;
 }
 
 .light {
@@ -30,8 +30,8 @@ body {
 }
 
 .dark {
-  --body: #14213d;
-  --secondary: #1d315c;
+  --body: #101b33;
+  --secondary: #1b2c52;
   --primary: #14213d;
   --black: #000000;
   --button: #f7f7f7;
