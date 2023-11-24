@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Container from '../../Container/Container';
-import { allNav } from './NavItem';
+import { allNav, loggedUserNav } from './NavItem';
 import { Link } from 'react-router-dom';
 import ActiveLink from '../../ActiveLink/ActiveLink';
 import { FaList } from 'react-icons/fa';
@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 
 const Navbar = () => {
     const { user, logOut, setLoading } = useAuth();
+    const isAdmin = true;
     const [show, setShow] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem("theme") || "dark";
@@ -58,18 +59,48 @@ const Navbar = () => {
                                     </ActiveLink>
                                 </li>)
                             }
+                            {
+                                user &&
+                                loggedUserNav?.map((item, i) => <ActiveLink
+                                    key={i}
+                                    to={item.path}
+                                    onClick={() => {
+                                        setShow(false)
+                                    }}
+                                >
+                                    {item.title}
+                                </ActiveLink>)
+                            }
+                            {
+                                isAdmin && <ActiveLink to='/dashboard'>Dashboard</ActiveLink>
+                            }
                         </ul>
                     </div>
 
                     {/* show in large device */}
                     <div className='hidden lg:block'>
-                        <ul className='lg:flex items-center gap-5 font-semibold'>
+                        <ul className='lg:flex items-center gap-4 font-semibold'>
                             {
                                 allNav.map((nav) => <li key={nav.id} onClick={() => setShow(false)}>
                                     <ActiveLink to={nav.path}>
                                         {nav.title}
                                     </ActiveLink>
                                 </li>)
+                            }
+                            {
+                                user &&
+                                loggedUserNav?.map((item, i) => <ActiveLink
+                                    key={i}
+                                    to={item.path}
+                                    onClick={() => {
+                                        setShow(false)
+                                    }}
+                                >
+                                    {item.title}
+                                </ActiveLink>)
+                            }
+                            {
+                                isAdmin && <ActiveLink to='/dashboard'>Dashboard</ActiveLink>
                             }
                         </ul>
                     </div>
