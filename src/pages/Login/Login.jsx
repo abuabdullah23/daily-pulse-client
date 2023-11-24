@@ -8,9 +8,10 @@ import LottieComp from "../../components/LottieCom/LottieComp";
 import BackToHome from "../../components/BackToHome/BackToHome";
 import useAuth from "../../hooks/useAuth";
 import FadeLoader from 'react-spinners/FadeLoader'
+import { toast } from "react-toastify";
 
 const Login = () => {
-    const { loading, setLoading, user } = useAuth();
+    const { loading, setLoading, user, login } = useAuth();
     const [seePass, setSeePass] = useState(false);
 
     // handle login form value
@@ -19,11 +20,16 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        const loginData = {
-            email,
-            password,
-        }
-        console.log(loginData);
+
+        login(email, password)
+            .then(res => {
+                toast.success('Login Successful!');
+                setLoading(false);
+            })
+            .catch(error => {
+                toast.error(error.message);
+                setLoading(false);
+            })
     }
 
     return (
