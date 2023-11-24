@@ -1,43 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Container from '../../Container/Container';
 import { allNav } from './NavItem';
 import { Link } from 'react-router-dom';
 import ActiveLink from '../../ActiveLink/ActiveLink';
-import { FaList, FaMoon } from 'react-icons/fa';
-import { BiSun } from 'react-icons/bi';
+import { FaList } from 'react-icons/fa';
 import logoLight from '../../../assets/images/logo/logo-light.png'
 import logoDark from '../../../assets/images/logo/logo-dark.png'
 import smallLogoLight from '../../../assets/images/logo/favicon.png'
 import smallLogoDark from '../../../assets/images/logo/favicon-dark.png'
+import DarkMode from '../../ThemeToggle/ThemeToggle';
 
 const Navbar = () => {
-    const user = 'null';
+    const user = null;
     const [show, setShow] = useState(false);
-    const [theme, setTheme] = useState(null);
-
-    useEffect(() => {
-        const storageTheme = localStorage.getItem('theme')
-        const prefersDark = window.matchMedia("(prefers-color-scheme: light)").matches;
-        if (storageTheme) {
-            setTheme(storageTheme)
-        } else {
-            setTheme(prefersDark ? 'dark' : 'light')
-        }
-    }, [])
-
-    useEffect(() => {
-        if (theme) {
-            document.documentElement.classList.toggle('dark', theme === 'dark');
-            localStorage.setItem('theme', theme)
-        }
-    }, [theme])
-
-    const handleThemeToggle = () => {
-        setTheme((pre) => pre === 'dark' ? 'light' : 'dark');
-    }
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem("theme") || "dark";
+    });
 
     return (
-        <div className='sticky top-0 z-10 shadow py-3 bg-white dark:bg-black'>
+        <div className='sticky top-0 z-10 shadow py-3 bg-[var(--secondary)]'>
             <Container>
                 <div className='flex items-center justify-between relative'>
                     <Link to={'/'} className='hidden lg:block'>
@@ -79,11 +60,8 @@ const Navbar = () => {
                     </div>
 
                     <div className='flex items-center gap-3'>
-                        <button onClick={handleThemeToggle} className='mr-3'>
-                            {
-                                theme === 'light' ? <FaMoon className='cursor-pointer' /> : <BiSun className='cursor-pointer text-white' />
-                            }
-                        </button>
+                    
+                        <DarkMode theme={theme} setTheme={setTheme} />
                         {
                             user ? <>
                                 <div className='flex items-center gap-3'>
@@ -91,7 +69,7 @@ const Navbar = () => {
                                     <button className='text-gray-600 hover:text-red-500 font-semibold'>Log Out</button>
                                 </div>
                             </> : <>
-                                <Link className='text-gray-600 hover:text-orange-500 font-semibold' to={'/login'}>Log In</Link>
+                                <Link className='text-gray-600 dark:text-gray-100 hover:text-orange-500 font-semibold' to={'/login'}>Log In</Link>
                             </>
                         }
                     </div>
