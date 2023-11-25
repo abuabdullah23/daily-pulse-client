@@ -9,6 +9,7 @@ import BackToHome from "../../components/BackToHome/BackToHome";
 import useAuth from "../../hooks/useAuth";
 import FadeLoader from 'react-spinners/FadeLoader'
 import { toast } from "react-toastify";
+import { saveUser } from "../../api/auth";
 
 const Login = () => {
     const { loading, setLoading, user, login } = useAuth();
@@ -32,6 +33,9 @@ const Login = () => {
                 toast.success('Login Successful!');
                 setLoading(false);
                 navigate(from, { replace: true });
+
+                // save user in mongoDB
+                saveUser(res?.user)
             })
             .catch(error => {
                 toast.error(error.message);

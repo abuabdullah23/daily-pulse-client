@@ -51,19 +51,19 @@ const AuthProvider = ({ children }) => {
             setUser(loggedUser);
             setLoading(false)
 
-            // create jwt
+            // create and clear jwt
             const userEmail = loggedUser?.email || user?.email;
             if (loggedUser?.email) {
                 axios.post(`${import.meta.env.VITE_BASE_API_URL}/jwt`, { email: userEmail }, { withCredentials: true })
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
             } else {
                 axios.post(`${import.meta.env.VITE_BASE_API_URL}/logout`, userEmail, {
                     withCredentials: true
                 })
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                     })
             }
 

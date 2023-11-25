@@ -11,14 +11,17 @@ import smallLogoDark from '../../../assets/images/logo/favicon-dark.png'
 import DarkMode from '../../ThemeToggle/ThemeToggle';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import useAdmin from '../../../hooks/useAdmin';
 
 const Navbar = () => {
     const { user, logOut, setLoading } = useAuth();
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
     const [show, setShow] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem("theme") || "dark";
     });
+
+    console.log(isAdmin);
 
     // handleLogOut
     const handleLogOut = () => {
@@ -79,7 +82,7 @@ const Navbar = () => {
 
                     {/* show in large device */}
                     <div className='hidden lg:block'>
-                        <ul className='lg:flex items-center gap-4 font-semibold'>
+                        <ul className='lg:flex items-center gap-4'>
                             {
                                 allNav.map((nav) => <li key={nav.id} onClick={() => setShow(false)}>
                                     <ActiveLink to={nav.path}>
@@ -111,10 +114,10 @@ const Navbar = () => {
                             user ? <>
                                 <div className='flex items-center gap-3'>
                                     <img className='h-8 w-8 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
-                                    <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-orange-500 font-semibold'>Log Out</button>
+                                    <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold'>Log Out</button>
                                 </div>
                             </> : <>
-                                <Link className='text-gray-600 dark:text-gray-100 hover:text-orange-500 font-semibold' to={'/login'}>Log In</Link>
+                                <Link className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold' to={'/login'}>Log In</Link>
                             </>
                         }
                     </div>
