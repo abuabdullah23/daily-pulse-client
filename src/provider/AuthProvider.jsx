@@ -3,6 +3,7 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStat
 import { useState } from 'react';
 import axios from 'axios';
 import app from '../firebase/firebase-config';
+import { saveUser } from '../api/auth';
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app)

@@ -37,7 +37,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='sticky top-0 z-10 shadow py-3 bg-[var(--secondary)]'>
+        <div className='sticky top-0 z-10 shadow py-4 bg-[var(--secondary)]'>
             <Container>
                 <div className='flex items-center justify-between relative'>
                     <Link to={'/'} className='hidden lg:block'>
@@ -82,7 +82,7 @@ const Navbar = () => {
 
                     {/* show in large device */}
                     <div className='hidden lg:block'>
-                        <ul className='lg:flex items-center gap-4'>
+                        <ul className='lg:flex flex-wrap items-center gap-4 whitespace-nowrap px-5'>
                             {
                                 allNav.map((nav) => <li key={nav.id} onClick={() => setShow(false)}>
                                     <ActiveLink to={nav.path}>
@@ -114,10 +114,10 @@ const Navbar = () => {
                             user ? <>
                                 <div className='flex items-center gap-3'>
                                     <img className='h-8 w-8 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
-                                    <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold'>Log Out</button>
+                                    <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap'>Log Out</button>
                                 </div>
                             </> : <>
-                                <Link className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold' to={'/login'}>Log In</Link>
+                                <Link className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap' to={'/login'}>Log In</Link>
                             </>
                         }
                     </div>

@@ -6,6 +6,12 @@ import Register from "../pages/Login/Register";
 import Error from "../Error";
 import AddArticle from "../pages/AddArticle/AddArticle";
 import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../dashboardLayout/DashboardLayout";
+import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AllArticlesAdmin from "../pages/Dashboard/AllArticlesAdmin/AllArticlesAdmin";
+import AddPublisher from "../pages/Dashboard/AddPublisher/AddPublisher";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +46,31 @@ const router = createBrowserRouter([
     {
         path: '*',
         element: <Error />,
+    },
+
+    // Dashboard Layout and Routes
+    {
+        path: "/dashboard",
+        element: <AdminRoute><DashboardLayout /></AdminRoute>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard />,
+                index: true
+            },
+            {
+                path: '/dashboard/all-users',
+                element: <AllUsers />,
+            },
+            {
+                path: '/dashboard/all-articles',
+                element: <AllArticlesAdmin />,
+            },
+            {
+                path: '/dashboard/add-publisher',
+                element: <AddPublisher />,
+            }
+        ]
     }
 
 ]);
