@@ -21,8 +21,6 @@ const Navbar = () => {
         return localStorage.getItem("theme") || "dark";
     });
 
-    console.log(isAdmin);
-
     // handleLogOut
     const handleLogOut = () => {
         logOut()

@@ -14,5 +14,5 @@ export const saveUser = user => {
         body: JSON.stringify(currentUser),
     })
         .then(res => res.json())
-        .then(data => console.log(data))
+    // .then(data => console.log(data))
 }

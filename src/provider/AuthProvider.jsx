@@ -53,19 +53,15 @@ const AuthProvider = ({ children }) => {
             setLoading(false)
 
             // create and clear jwt
-            const userEmail = loggedUser?.email || user?.email;
             if (loggedUser?.email) {
-                axios.post(`${import.meta.env.VITE_BASE_API_URL}/jwt`, { email: userEmail }, { withCredentials: true })
-                    .then(res => {
-                        // console.log(res.data);
+                axios.post(`${import.meta.env.VITE_BASE_API_URL}/jwt`, { email: loggedUser?.email })
+                    .then(data => {
+                        localStorage.setItem('access-token', data.data.token)
+                        setLoading(false)
                     })
             } else {
-                axios.post(`${import.meta.env.VITE_BASE_API_URL}/logout`, userEmail, {
-                    withCredentials: true
-                })
-                    .then(res => {
-                        // console.log(res.data);
-                    })
+                localStorage.removeItem('access-token')
+                setLoading(false)
             }
 
         })
