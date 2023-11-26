@@ -42,7 +42,7 @@ const AddPublisher = () => {
                 // save in the database
                 axiosSecure.post('/add-publisher', { name, image: imgUrl })
                     .then((res) => {
-                        console.log(res);
+                        // console.log(res);
                         if (res?.status === 200) {
                             toast.success(res?.data?.message);
                             form.reset('');
