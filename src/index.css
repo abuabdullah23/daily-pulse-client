@@ -26,7 +26,8 @@ body {
   --primary: #14213d;
   --black: #000000;
   --button: #fca311;
-  --primary-text: #292929;
+  --titleBg: #fca311;
+  --primary-text: #363636;
 }
 
 .dark {
@@ -35,5 +36,6 @@ body {
   --primary: #14213d;
   --black: #000000;
   --button: #f7f7f7;
-  --primary-text: #f7f7f7;
+  --titleBg: #77a2ff;
+  --primary-text: #e4e4e4;
 }
