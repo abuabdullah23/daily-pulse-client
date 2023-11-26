@@ -1,10 +1,25 @@
 const newsTags = [
+    { value: 'education insights', label: 'Education Insights' },
     { value: 'news', label: 'News' },
+    { value: 'business', label: 'Business' },
+    { value: 'weather forecasts', label: 'Weather Forecasts' },
     { value: 'current news', label: 'Current News' },
     { value: 'top news', label: 'Top News' },
+    { value: 'book reviews', label: 'Book Reviews' },
     { value: 'world', label: 'World' },
     { value: 'religion', label: 'Religion' },
     { value: 'religious', label: 'Religious' },
+    { value: 'breaking news', label: 'Breaking News' },
+    { value: 'filistin', label: 'Filistin' },
+    { value: 'english news', label: 'English News' },
+    { value: 'local events', label: 'Local Events' },
+    { value: 'politics', label: 'Politics' },
+    { value: 'technology trends', label: 'Technology Trends' },
+    { value: 'business updates', label: 'Business Updates' },
+    { value: 'health and wellness', label: 'Health and Wellness' },
+    { value: 'world news', label: 'World News' },
+    { value: 'palestine', label: 'Palestine' },
+    { value: 'economy', label: 'Economy' },
 ];
 
 export default newsTags;

@@ -87,7 +87,7 @@ const AddArticle = () => {
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Select publisher</label>
-                            <select name="publisher" id="publisher" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
+                            <select required name="publisher" id="publisher" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
                                 <option value="">--select--</option>
                                 {
                                     allPublisher?.map((p, i) => <option key={i} value={p?._id}>{p?.name}</option>)
