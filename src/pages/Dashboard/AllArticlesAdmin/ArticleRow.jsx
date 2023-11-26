@@ -1,16 +1,22 @@
 import moment from 'moment/moment';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { MdWorkspacePremium } from 'react-icons/md';
+import FeedbackModal from '../../../components/Modal/FeedbackModal';
 
 const ArticleRow = ({ article, index, refetch }) => {
     const { _id, title, authorName, authorEmail, authorPhoto, publisher, isPremium, tags, image, articleStatus, createdAt } = article;
 
     const axiosSecure = useAxiosSecure();
 
+    // for modal
+    const [isOpen, setIsOpen] = useState(false);
+    const closeModal = () => {
+        setIsOpen(false)
+    }
 
     // handle approve article
     const handleApproveArticle = (id) => {
@@ -169,7 +175,7 @@ const ArticleRow = ({ article, index, refetch }) => {
             </td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                <span className={`py-[2px] px-2 text-white rounded-sm ${articleStatus === 'pending' ? 'bg-[#ffd104] text-slate-800' : articleStatus === 'approved' ? 'bg-green-500' : 'bg-red-500'}`} >{articleStatus}</span>
+                <span className={`py-[2px] px-2 rounded-sm ${articleStatus === 'pending' ? 'bg-[#ffd104] text-black' : articleStatus === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`} >{articleStatus}</span>
             </td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
@@ -185,7 +191,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                                 </button>
                                 :
                                 <button
-                                    onClick={() => handleDecline(_id)}
+                                    onClick={() => setIsOpen(true)}
                                     title='Decline Article'
                                     className='py-[2px] px-1 bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'>decline
                                 </button>
@@ -205,6 +211,14 @@ const ArticleRow = ({ article, index, refetch }) => {
                                     className='py-[2px] px-1 bg-blue-500 rounded-sm hover:shadow-lg hover:shadow-blue-500/50'>approve
                                 </button>
                         }
+
+                        <FeedbackModal
+                            isOpen={isOpen}
+                            setIsOpen={setIsOpen}
+                            closeModal={closeModal}
+                            article={article}
+                            refetch={refetch}
+                        />
                     </div>
 
                     <div className='flex gap-1'>

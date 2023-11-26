@@ -1,50 +1,27 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import useAuth from '../../hook/useAuth';
-import useAxiosSecure from '../../hook/useAxiosSecure';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
-const BookingModal = ({ isOpen, closeModal, singleService }) => {
+const FeedbackModal = ({ isOpen, closeModal, article, refetch }) => {
     const axiosSecure = useAxiosSecure();
 
-    const { _id, service, image, price, providerName, providerInfo, providerEmail, providerPhoto, location, description } = singleService;
-    const { user } = useAuth();
-
-    const handleBooking = (event) => {
+    const handleDeclineArticle = (event) => {
         event.preventDefault();
         const form = event.target;
-        const takingDate = form.takingDate.value;
-        const instruction = form.instruction.value;
+        const feedback = form.feedback.value;
 
-        const bookingInfo = {
-            name: service,
-            image,
-            serviceId: _id,
-            takingDate,
-            price,
-            providerName,
-            providerEmail,
-            providerInfo,
-            providerPhoto,
-            location,
-            status: 'pending',
-            userEmail: user?.email || 'Unknown',
-            userName: user?.displayName,
-            instruction,
-            description
-        }
-
-        axiosSecure.post('/service-booking', bookingInfo)
+        axiosSecure.put(`add-feedback/${article?._id}`, { feedback })
             .then(res => {
                 if (res.status === 200) {
-                    toast.success('Service booking successful');
-                    closeModal();
+                    refetch();
+                    toast.success(res.data.message);
                 }
             })
             .catch(error => {
                 toast.error(error.message);
-                closeModal();
             })
+        console.log(feedback);
     }
 
     return (
@@ -74,66 +51,41 @@ const BookingModal = ({ isOpen, closeModal, singleService }) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#14213d] text-gray-100 p-6 text-left align-middle shadow-xl border-2 border-[#2e56ad] transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg text-center font-medium leading-6 text-gray-900"
+                                        className="text-lg text-center font-medium leading-6"
                                     >
-                                        Review Info Before Book
+                                        Write Feedback
                                     </Dialog.Title>
 
-                                    <form onSubmit={handleBooking}>
+                                    <form onSubmit={handleDeclineArticle}>
                                         <div className="flex flex-col gap-3 mt-2 text-base">
-                                            <div className='w-full h-[180px] md:h-[240px] lg:h-[360px] transition-all duration-300 p-3 border border-rose-400 rounded-md'>
-                                                <img className='h-full w-full object-cover rounded-md' src={image} alt="service image" />
+                                            <div className='w-full h-[180px] md:h-[200px] lg:h-[240px] transition-all duration-300 p-2 border border-[#203c79] rounded-md'>
+                                                <img className='h-full w-full object-cover rounded-md' src={article?.image} alt="service image" />
                                             </div>
-                                            <div className='bg-rose-100 p-2 rounded-md'>
-                                                <div className='flex flex-col gap-2'>
-                                                    <div className='flex items-center gap-2'>
-                                                        <label className='font-semibold' htmlFor="">Service Name:</label>
-                                                        <p>{service}</p>
-                                                    </div>
-                                                </div>
-                                                <div className='flex flex-col gap-2'>
-                                                    <div className='flex items-center gap-2'>
-                                                        <label className='font-semibold' htmlFor=""> Provider Email:</label>
-                                                        <p>{providerEmail}</p>
-                                                    </div>
-                                                </div>
-                                                <div className='flex flex-col gap-2'>
-                                                    <div className='flex items-center gap-2'>
-                                                        <label className='font-semibold' htmlFor=""> Price:</label>
-                                                        <p>${price}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div className='flex flex-col gap-2'>
                                                 <div className='flex items-center gap-2'>
-                                                    <label className='font-semibold' htmlFor="">User Email:</label>
-                                                    <p>{user?.email}</p>
-                                                </div>
-                                            </div>
-                                            <div className='flex flex-col gap-2'>
-                                                <div className='flex items-center gap-2'>
-                                                    <label className='font-semibold' htmlFor="">Service Taking Date:</label>
-                                                    <input required type="date" name='takingDate' className='py-1 px-2 border border-rose-200 focus:border-rose-500 rounded outline-none' />
+                                                    <label className='font-semibold' htmlFor="">Author Email:</label>
+                                                    <p>{article?.authorEmail}</p>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col gap-2'>
                                                 <div className='flex flex-col items-start gap-2'>
-                                                    <label className='font-semibold' htmlFor="">Special Instruction:</label>
-                                                    <textarea required type="text" name='instruction' placeholder='Write Instruction, anything like address , area, customized service plan' className='w-full py-1 px-2 border border-rose-200 focus:border-rose-500 rounded outline-none' />
+                                                    <label className='font-semibold' htmlFor="">Feedback:</label>
+                                                    <textarea required type="text" name='feedback' defaultValue={article?.adminFeedback} placeholder='Write your feedback' className='w-full py-1 px-2 bg-transparent border border-[#203c79] focus:border-[#203c79] rounded outline-none' />
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="mt-4 flex justify-center">
                                             <button
-                                                disabled={providerEmail === user?.email ? true : false}
+                                                onClick={closeModal}
                                                 type="submit"
-                                                className="rounded-md border-2 hover:border-rose-500 py-2 px-3 bg-rose-500 font-semibold hover:bg-transparent text-white hover:text-rose-500 transition-all duration-300"
+                                                className="rounded-md border-2 hover:border-[#203c79] py-2 px-3 bg-[#203c79] font-semibold hover:bg-transparent text-white hover:text-[#ffffff] transition-all duration-300"
                                             >
-                                                Purchase this Service
+                                                Submit Feedback
                                             </button>
                                         </div>
                                     </form>
@@ -147,4 +99,4 @@ const BookingModal = ({ isOpen, closeModal, singleService }) => {
     );
 };
 
-export default BookingModal;
+export default FeedbackModal;
