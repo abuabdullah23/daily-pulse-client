@@ -115,7 +115,7 @@ const AllUsers = () => {
                                 {
                                     allUser.map((u, i) => <tr key={i}>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded bg-gray-100' src={u?.image} alt="publisher image" /></td>
+                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded border-blue-800' src={u?.image} alt="publisher image" /></td>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{u?.email}</span></td>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{u?.name}</span></td>
 

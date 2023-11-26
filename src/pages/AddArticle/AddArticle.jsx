@@ -23,7 +23,6 @@ const AddArticle = () => {
         const form = event.target;
         const image = event.target.image.files[0];
         const title = form.title.value;
-        const isPremium = form.isPremium.value;
         const publisher = form.publisher.value;
         const description = form.description.value;
 
@@ -33,11 +32,10 @@ const AddArticle = () => {
                 const imgUrl = data.data.display_url;
                 const articleInfo = {
                     title,
-                    userName: user?.displayName,
-                    userEmail: user?.email,
-                    userPhoto: user?.photoURL,
+                    authorName: user?.displayName,
+                    authorEmail: user?.email,
+                    authorPhoto: user?.photoURL,
                     publisher,
-                    isPremium,
                     tags: selectedOption,
                     image: imgUrl,
                     description
@@ -48,7 +46,7 @@ const AddArticle = () => {
                             toast.success('Added article successful');
                             setLoader(false);
                             form.reset('');
-                            setSelectedOption(null)
+                            setSelectedOption(null); // not working, TODO: have to fix
                         }
                     })
                     .catch(error => {
@@ -87,7 +85,7 @@ const AddArticle = () => {
                     </div>
 
                     <div className='flex flex-col md:flex-row gap-4'>
-                        <div className='flex flex-col items-start gap-1 w-full md:w-6/12'>
+                        <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Select publisher</label>
                             <select name="publisher" id="publisher" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
                                 <option value="">--select--</option>
@@ -96,18 +94,7 @@ const AddArticle = () => {
                                 }
                             </select>
                         </div>
-                        <div className='flex flex-col items-start gap-1 w-full md:w-6/12'>
-                            <label className='font-semibold' htmlFor="">Select premium or not</label>
-                            <select name="isPremium" id="isPremium" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
-                                <option value="">--select--</option>
-                                <option value="true">true</option>
-                                <option value="false">false</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className='flex flex-col md:flex-row gap-4'>
-                        <div className='flex flex-col items-start gap-1 w-full'>
+                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Tags</label>
                             <Select
                                 className='w-full border text-slate-600 border-indigo-400 focus:border-indigo-500 rounded outline-none'
