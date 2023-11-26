@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Loader from '../../../components/Loader/Loader';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
@@ -7,17 +7,16 @@ import { BsImage } from 'react-icons/bs';
 import { imageUpload } from '../../../utils/imageUpload';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
+import useAllPublisher from '../../../hooks/useAllPublisher';
+import Swal from 'sweetalert2';
 
 const AddPublisher = () => {
     const [show, setShow] = useState(false);
-    const [imageShow, setImageShow] = useState('');
     const axiosSecure = useAxiosSecure();
     const [loader, setLoader] = useState(false);
+    const [imageShow, setImageShow] = useState('');
     const [image, setImage] = useState('');
-
-    const publishers = [
-
-    ]
+    const [allPublisher, refetch] = useAllPublisher();
 
     // handleImage
     const handleImage = (e) => {
@@ -31,7 +30,7 @@ const AddPublisher = () => {
     // handle add publisher
     const handleAddPublisher = (e) => {
         e.preventDefault();
-        setLoader(true)
+        setLoader(true);
         const form = e.target;
         const name = form.name.value;
 
@@ -40,18 +39,52 @@ const AddPublisher = () => {
             .then(data => {
                 const imgUrl = data.data.display_url;
 
-                // save in database
+                // save in the database
                 axiosSecure.post('/add-publisher', { name, image: imgUrl })
                     .then((res) => {
+                        console.log(res);
                         if (res?.status === 200) {
-                            toast.success(res?.data?.message)
-                            setLoader(false)
-                        } else {
-                            setLoader(false)
-                            toast.error('Publisher already exist');
+                            toast.success(res?.data?.message);
+                            form.reset('');
+                            setImageShow(''); // Reset the imageShow state
+                            setImage('');
+                            setLoader(false);
+                            refetch();
                         }
                     })
+                    .catch(error => {
+                        console.log(error.message);
+                        setLoader(false);
+                        toast.error('Publisher already exists');
+                    })
             })
+    }
+
+
+    // delete publisher by id
+    const handleDeletePublisher = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'green',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/delete-publisher/${id}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            toast.success('Delete your publisher successful');
+                            refetch();
+                        }
+                    })
+                    .catch(error => {
+                        toast.error(error.message);
+                    })
+            }
+        })
     }
 
 
@@ -60,35 +93,35 @@ const AddPublisher = () => {
         <div className='px-2 lg:px-7 pt-5'>
             {/* Conditional rendering: show only small device */}
             <div className='flex lg:hidden justify-between items-center mb-5 p-4 bg-[#283046] rounded-md'>
-                <h1 className='text-[#d0d2d6] font-semibold text-base'>Publishers</h1>
+                <h1 className='text-[#d0d2d6] font-semibold text-base'>Publishers: {allPublisher.length}</h1>
                 <button onClick={() => setShow(true)} className='bg-orange-500 shadow-lg hover:shadow-orange-500/50 px-4 py-2 cursor-pointer text-white rounded-sm text-sm'>Add</button>
             </div>
 
             <div className='flex flex-wrap w-full'>
                 <div className='w-full lg:w-7/12 p-4 bg-[#283046] rounded-md'>
                     {/* Table data */}
-                    <h1 className='text-[#d0d2d6] font-semibold text-base hidden lg:block'>Publishers: {publishers.length}</h1>
+                    <h1 className='text-[#d0d2d6] font-semibold text-base hidden lg:block mb-2'>Publishers: {allPublisher.length}</h1>
 
                     <div className='relative overflow-x-auto overflow-y-auto h-[calc(100vh-200px)]'>
                         <table className='w-full text-sm text-left text-[#ffffff]'>
                             <thead className='text-sm text-[#ececec] uppercase border-b border-slate-700'>
                                 <tr>
                                     <th scope='col' className='py-3 px-4'>No</th>
-                                    <th scope='col' className='py-3 px-4'>Image</th>
+                                    <th scope='col' className='py-3 px-4'>Logo</th>
                                     <th scope='col' className='py-3 px-4'>Name</th>
                                     <th scope='col' className='py-3 px-4'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    publishers.map((item, i) => <tr key={i}>
+                                    allPublisher.map((item, i) => <tr key={i}>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11' src={item.image} alt="publisher image" /></td>
+                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded bg-gray-100' src={item.image} alt="publisher image" /></td>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{item.name}</span></td>
                                         <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                                            <div className='flex justify-start items-center gap-4'>
-                                                <Link className='p-[6px] bg-orange-500 rounded-sm hover:shadow-lg hover:shadow-orange-500/50'><FaEdit /></Link>
-                                                <Link className='p-[6px] bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'><FaTrashAlt /></Link>
+                                            <div className='flex justify-center items-center gap-4'>
+                                                {/* <Link className='p-[6px] bg-orange-500 rounded-sm hover:shadow-lg hover:shadow-orange-500/50'><FaEdit /></Link> */}
+                                                <button onClick={() => handleDeletePublisher(item._id)} className='p-[6px] bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'><FaTrashAlt /></button>
                                             </div>
                                         </td>
                                     </tr>)
@@ -133,7 +166,7 @@ const AddPublisher = () => {
                                     <button
                                         disabled={loader ? true : false}
                                         type="submit"
-                                        className={`py-2 px-4 w-full bg-blue-500 hover:shadow-blue-500/20 hover:shadow-lg text-white rounded-md mb-3 ${loader && 'bg-blue-400'} `}>
+                                        className={`py-2 px-4 w-full bg-orange-500 hover:shadow-orange-500/20 hover:shadow-lg text-white rounded-md mb-3 ${loader && 'bg-orange-400'} `}>
                                         {
                                             loader ? <Loader loadingText={'Uploading...'} /> : 'Add Publisher'
                                         }

@@ -1,6 +1,6 @@
 import { AiFillDashboard, AiOutlinePlus } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
-import { RiProductHuntLine } from "react-icons/ri";
+import { RiArticleLine } from "react-icons/ri";
 
 export const dashboardNav = [
     {
@@ -15,7 +15,7 @@ export const dashboardNav = [
     },
     {
         title: 'All Articles',
-        icon: <RiProductHuntLine />,
+        icon: <RiArticleLine />,
         path: '/dashboard/all-articles'
     },
     {
