@@ -71,7 +71,11 @@ const SingleRow = ({ article, index, refetch }) => {
                 <div className='flex items-center h-6'>
                     <span className={`py-[2px] px-2 h-full ${articleStatus === 'pending' ? 'bg-[#ffd104] text-black rounded-sm' : articleStatus === 'approved' ? 'bg-green-500 text-white rounded-sm' : 'bg-[#ff2929] text-white rounded-l-sm'}`} >{articleStatus}</span>
                     {
-                        articleStatus === 'decline' && <button title='View the reason of decline' className='`py-[2px] px-2 h-full text-white bg-green-500 rounded-r-sm'><FaEye /></button>
+                        articleStatus === 'decline' &&
+                        <button onClick={() => setIsOpen(true)}
+                            title='View the reason of decline'
+                            className='`py-[2px] px-2 h-full text-white bg-green-500 rounded-r-sm'><FaEye />
+                        </button>
                     }
                 </div>
                 <ViewFeedbackModal

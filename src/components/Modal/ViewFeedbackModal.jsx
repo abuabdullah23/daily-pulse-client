@@ -30,7 +30,7 @@ const ViewFeedbackModal = ({ isOpen, closeModal, article }) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#14213d] text-gray-100 p-6 text-left align-middle shadow-xl border-2 border-[#2e56ad] transition-all">
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-slate-200 dark:bg-[#14213d] text-slate-700 dark:text-gray-100 p-6 text-left align-middle shadow-xl border-2 border-[#2e56ad] transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg text-center font-medium leading-6"
@@ -44,20 +44,20 @@ const ViewFeedbackModal = ({ isOpen, closeModal, article }) => {
                                                 <img className='h-full w-full object-cover rounded-md' src={article?.image} alt="service image" />
                                             </div>
 
-                                            <div className='flex flex-col gap-2'>
+                                            <div className='flex flex-col gap-4'>
                                                 <div className='flex flex-col items-start gap-2'>
                                                     <label className='font-semibold' htmlFor="">Feedback:</label>
-                                                    <p className='w-full py-1 px-2 bg-transparent border border-[#203c79] focus:border-[#203c79] rounded outline-none'> {article?.adminFeedback} </p>
+                                                    <p className='w-full py-4 px-3 bg-transparent border border-[#203c79] focus:border-[#203c79] rounded outline-none'> {article?.adminFeedback} </p>
+                                                </div>
+                                                <div className='flex justify-end'>
+                                                    <button
+                                                        onClick={closeModal}
+                                                        className="rounded-md border-2 hover:border-[#203c79] py-2 px-3 bg-[#203c79] font-semibold w-fit hover:bg-transparent text-white hover:text-slate-700 dark:hover:text-[#ffffff] transition-all duration-300"
+                                                    >
+                                                        Close
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <button
-                                                onClick={closeModal}
-                                                className="rounded-md border-2 hover:border-[#203c79] py-2 px-3 bg-[#203c79] font-semibold hover:bg-transparent text-white hover:text-[#ffffff] transition-all duration-300"
-                                            >
-                                                Ok
-                                            </button>
-
                                         </div>
                                     </div>
                                 </Dialog.Panel>

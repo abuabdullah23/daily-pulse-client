@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useViewSingleArticle from '../../hooks/useViewSingleArticle';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
-import Loader from '../../components/Loader/Loader';
-import { toast } from 'react-toastify';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import useAuth from '../../hooks/useAuth';
 import useAllPublisher from '../../hooks/useAllPublisher';
-import newsTags from './tags';
 import Select from 'react-select';
+import newsTags from '../AddArticle/tags';
+import Loader from '../../components/Loader/Loader';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { imageUpload } from '../../utils/imageUpload';
+import { toast } from 'react-toastify';
 
-const AddArticle = () => {
+const UpdateArticle = () => {
+    const { id } = useParams();
+    const { singleArticle, refetch, isLoading } = useViewSingleArticle(id);
     const [loader, setLoader] = useState(false);
-    const axiosSecure = useAxiosSecure();
-    const { user } = useAuth();
     const [allPublisher] = useAllPublisher();
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(singleArticle?.tags);
+    const { _id, title, authorName, authorEmail, authorPhoto, publisher, description } = singleArticle;
+    const axiosSecure = useAxiosSecure();
+    const initialSelectedOption = selectedOption || [];
 
-    // Add article method
-    const handleAddArticle = (event) => {
+    // update article method
+    const handleUpdateArticle = (event) => {
         event.preventDefault();
         setLoader(true);
         const form = event.target;
@@ -27,26 +31,25 @@ const AddArticle = () => {
         const description = form.description.value;
 
         // upload image
-        imageUpload(image)
+        imageUpload(image || singleArticle?.image)
             .then(data => {
                 const imgUrl = data.data.display_url;
                 const articleInfo = {
                     title,
-                    authorName: user?.displayName,
-                    authorEmail: user?.email,
-                    authorPhoto: user?.photoURL,
+                    authorName,
+                    authorEmail,
+                    authorPhoto,
                     publisher,
-                    tags: selectedOption,
+                    tags: selectedOption || singleArticle?.tags,
                     image: imgUrl,
                     description
                 }
-                axiosSecure.post('/add-article', articleInfo)
+                axiosSecure.put(`/update-article/${_id}`, articleInfo)
                     .then(res => {
                         if (res.status === 200) {
-                            toast.success('Added article successful');
+                            toast.success(res?.data?.message);
                             setLoader(false);
-                            form.reset('');
-                            setSelectedOption(null); // not working, TODO: have to fix
+                            refetch();
                         }
                     })
                     .catch(error => {
@@ -58,29 +61,35 @@ const AddArticle = () => {
 
     return (
         <div>
-            <SectionTitle sectionTitle={'Add New Article'} />
+            <SectionTitle sectionTitle={'Update Article'} />
 
-            <form onSubmit={handleAddArticle}>
+            <div className='flex items-center justify-center mb-8'>
+                <div className='w-2/3 md:w-1/2 h-[120px] md:h-[156px] lg:h-[200px] transition-all duration-300 rounded-lg border border-slate-500'>
+                    <img src={singleArticle?.image} className='w-full h-full object-cover object-top rounded-lg overflow-hidden' alt="article image" />
+                </div>
+            </div>
+
+            <form onSubmit={handleUpdateArticle}>
                 <div className='flex flex-col gap-5'>
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Select Article Image</label>
-                            <input required accept='image/*' type="file" name='image' className='w-full py-[5px] px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <input accept='image/*' type="file" name='image' className='w-full py-[5px] px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">article Name</label>
-                            <input required type="text" name='title' placeholder='article name is here' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <input required defaultValue={title} type="text" name='title' placeholder='article name is here' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>
 
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">User Name</label>
-                            <input readOnly value={user?.displayName} type="text" name='providerName' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <input readOnly value={authorName} type="text" name='providerName' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">User Email</label>
-                            <input readOnly value={user?.email} type="text" name='providerEmail' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <input readOnly value={authorEmail} type="text" name='providerEmail' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>
 
@@ -88,28 +97,31 @@ const AddArticle = () => {
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Select publisher</label>
                             <select required name="publisher" id="publisher" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
-                                <option value="">--select--</option>
+                                <option value={publisher?._id}>{publisher?.name}</option>
                                 {
                                     allPublisher?.map((p, i) => <option key={i} value={p?._id}>{p?.name}</option>)
                                 }
                             </select>
                         </div>
-                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
+                        <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Tags</label>
-                            <Select
-                                className='w-full border text-slate-600 border-indigo-400 focus:border-indigo-500 rounded outline-none'
-                                isMulti
-                                defaultValue={selectedOption}
-                                onChange={setSelectedOption}
-                                options={newsTags}
-                            />
+                            {
+                                isLoading && !singleArticle?.tags ? '' :
+                                    <Select
+                                        className='w-full border text-slate-600 border-indigo-400 focus:border-indigo-500 rounded outline-none'
+                                        isMulti
+                                        defaultValue={initialSelectedOption}
+                                        onChange={setSelectedOption}
+                                        options={newsTags}
+                                    />
+                            }
                         </div>
                     </div>
 
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full'>
                             <label className='font-semibold' htmlFor="">Description</label>
-                            <textarea required type="text" rows={8} name='description' placeholder='Write your article description' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <textarea required defaultValue={description} rows={8} type="text" name='description' placeholder='Write your article description' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>
 
@@ -119,7 +131,7 @@ const AddArticle = () => {
                             type="submit"
                             className={`py-2 px-4 w-fit bg-orange-500 hover:shadow-orange-500/20 hover:shadow-lg font-semibold text-white rounded-md mb-3 ${loader && 'bg-orange-400'} `}>
                             {
-                                loader ? <Loader loadingText={'Adding Article...'} /> : 'Add Article'
+                                loader ? <Loader loadingText={'Updating Article...'} /> : 'Update Article'
                             }
                         </button>
                     </div>
@@ -129,4 +141,4 @@ const AddArticle = () => {
     );
 };
 
-export default AddArticle;
+export default UpdateArticle;
