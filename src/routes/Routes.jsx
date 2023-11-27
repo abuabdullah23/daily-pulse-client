@@ -16,6 +16,8 @@ import MyArticles from "../pages/MyArticles/MyArticles";
 import UpdateArticle from "../pages/UpdateArticle/UpdateArticle";
 import MyArticleDetails from "../pages/MyArticles/MyArticleDetails";
 import ViewArticleDetails from "../pages/Dashboard/AllArticlesAdmin/ViewArticleDetails";
+import AllArticles from "../pages/AllArticles/AllArticles";
+import ApprovedArticleDetails from "../pages/ApprovedArticleDetails/ApprovedArticleDetails";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Home />,
                 index: true
+            },
+            {
+                path: '/all-articles',
+                element: <AllArticles />
             },
             // Private Route
             {
@@ -43,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: '/author-article-details/:id',
                 element: <PrivateRoute><MyArticleDetails /></PrivateRoute>,
+            },
+            {
+                path: '/approved-article-details/:id',
+                element: <PrivateRoute><ApprovedArticleDetails /></PrivateRoute>,
             },
         ]
     },

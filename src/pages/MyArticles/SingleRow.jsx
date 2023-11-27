@@ -9,7 +9,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const SingleRow = ({ article, index, refetch }) => {
-    const { _id, title, isPremium, image, articleStatus, createdAt } = article;
+    const { _id, title, isPremium, image, articleStatus, createdAt, views } = article;
 
     const axiosSecure = useAxiosSecure();
 
@@ -51,7 +51,7 @@ const SingleRow = ({ article, index, refetch }) => {
                 <div className='w-8 h-8 bg-slate-300 dark:bg-slate-700 rounded-full flex items-center justify-center'>{index + 1}</div>
             </td>
 
-            <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-8 w-11 object-cover border rounded border-[#2d5dc4]' src={image} alt="publisher image" /></td>
+            <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img title={`${views} views`} className='h-8 w-11 object-cover border rounded border-[#2d5dc4]' src={image} alt="publisher image" /></td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span title={title}>{title.slice(0, 20)}...</span></td>
 
