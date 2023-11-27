@@ -14,6 +14,8 @@ import AddPublisher from "../pages/Dashboard/AddPublisher/AddPublisher";
 import AdminRoute from "./AdminRoute";
 import MyArticles from "../pages/MyArticles/MyArticles";
 import UpdateArticle from "../pages/UpdateArticle/UpdateArticle";
+import MyArticleDetails from "../pages/MyArticles/MyArticleDetails";
+import ViewArticleDetails from "../pages/Dashboard/AllArticlesAdmin/ViewArticleDetails";
 
 const router = createBrowserRouter([
     {
@@ -38,7 +40,10 @@ const router = createBrowserRouter([
                 path: '/update-article/:id',
                 element: <PrivateRoute><UpdateArticle /></PrivateRoute>,
             },
-
+            {
+                path: '/author-article-details/:id',
+                element: <PrivateRoute><MyArticleDetails /></PrivateRoute>,
+            },
         ]
     },
 
@@ -75,6 +80,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/all-articles',
                 element: <AllArticlesAdmin />,
+            },
+            {
+                path: '/dashboard/author-article-details/:id',
+                element: <ViewArticleDetails />,
             },
             {
                 path: '/dashboard/add-publisher',

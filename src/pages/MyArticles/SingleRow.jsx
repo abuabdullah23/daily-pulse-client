@@ -9,7 +9,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const SingleRow = ({ article, index, refetch }) => {
-    const { _id, title, authorName, authorEmail, authorPhoto, publisher, isPremium, tags, image, articleStatus, createdAt } = article;
+    const { _id, title, isPremium, image, articleStatus, createdAt } = article;
 
     const axiosSecure = useAxiosSecure();
 
@@ -92,8 +92,8 @@ const SingleRow = ({ article, index, refetch }) => {
 
 
                     <div className='flex gap-2'>
-                        <Link to={`/details/${_id}`}
-                            title='View Article'
+                        <Link to={`/author-article-details/${_id}`}
+                            title='View Details Article'
                             className='py-[2px] px-2 bg-indigo-500 rounded-sm hover:shadow-lg hover:shadow-indigo-500/50 flex flex-row items-center gap-1'><FaEye /> <span>view</span>
                         </Link>
                         <Link to={`/update-article/${_id}`}

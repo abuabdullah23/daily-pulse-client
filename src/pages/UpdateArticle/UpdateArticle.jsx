@@ -84,11 +84,11 @@ const UpdateArticle = () => {
 
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
-                            <label className='font-semibold' htmlFor="">User Name</label>
+                            <label className='font-semibold' htmlFor="">Author Name</label>
                             <input readOnly value={authorName} type="text" name='providerName' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
-                            <label className='font-semibold' htmlFor="">User Email</label>
+                            <label className='font-semibold' htmlFor="">Author Email</label>
                             <input readOnly value={authorEmail} type="text" name='providerEmail' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>

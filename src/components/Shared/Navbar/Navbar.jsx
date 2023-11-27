@@ -51,8 +51,8 @@ const Navbar = () => {
                     </Link>
 
                     {/* show only from medium device */}
-                    <div className={`${show ? 'absolute bg-[var(--body)] z-20 w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
-                        <ul className='flex flex-col items-start gap-2 font-semibold'>
+                    {/* <div className={`${show ? 'absolute bg-[var(--body)] z-[9999] w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
+                        <ul className='flex flex-col items-start gap-4 font-semibold'>
                             {
                                 allNav.map((nav) => <li key={nav.id} onClick={() => setShow(false)}>
                                     <ActiveLink to={nav.path}>
@@ -65,16 +65,37 @@ const Navbar = () => {
                                 loggedUserNav?.map((item, i) => <ActiveLink
                                     key={i}
                                     to={item.path}
-                                    onClick={() => {
-                                        setShow(false)
-                                    }}
+                                    onClick={() => setShow(false)}
                                 >
                                     {item.title}
                                 </ActiveLink>)
                             }
                             {
-                                isAdmin && <ActiveLink to='/dashboard'>Dashboard</ActiveLink>
+                                isAdmin &&
+                                <li onClick={() => setShow(false)}>
+                                    <ActiveLink to='/dashboard'>Dashboard</ActiveLink>
+                                </li>
                             }
+                        </ul>
+                    </div> */}
+
+                    <div className={`${show ? 'absolute bg-[var(--body)] z-[9999] w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
+                        <ul className='flex flex-col items-start gap-4 font-semibold'>
+                            {allNav.map((nav) => (
+                                <li key={nav.id} onClick={() => setShow(false)}>
+                                    <ActiveLink to={nav.path}>{nav.title}</ActiveLink>
+                                </li>
+                            ))}
+                            {user && loggedUserNav?.map((item, i) => (
+                                <li key={i} onClick={() => setShow(false)}>
+                                    <ActiveLink to={item.path}>{item.title}</ActiveLink>
+                                </li>
+                            ))}
+                            {isAdmin && (
+                                <li onClick={() => setShow(false)}>
+                                    <ActiveLink to='/dashboard'>Dashboard</ActiveLink>
+                                </li>
+                            )}
                         </ul>
                     </div>
 
@@ -90,15 +111,11 @@ const Navbar = () => {
                             }
                             {
                                 user &&
-                                loggedUserNav?.map((item, i) => <ActiveLink
-                                    key={i}
-                                    to={item.path}
-                                    onClick={() => {
-                                        setShow(false)
-                                    }}
-                                >
-                                    {item.title}
-                                </ActiveLink>)
+                                loggedUserNav?.map((item, i) => <li key={i} onClick={() => setShow(show)}>
+                                    <ActiveLink to={item.path} >
+                                        {item.title}
+                                    </ActiveLink>
+                                </li>)
                             }
                             {
                                 isAdmin && <ActiveLink to='/dashboard'>Dashboard</ActiveLink>

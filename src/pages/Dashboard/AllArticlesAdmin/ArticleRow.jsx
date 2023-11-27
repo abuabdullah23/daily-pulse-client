@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { MdWorkspacePremium } from 'react-icons/md';
 import FeedbackModal from '../../../components/Modal/FeedbackModal';
+import { Link } from 'react-router-dom';
 
 const ArticleRow = ({ article, index, refetch }) => {
     const { _id, title, authorName, authorEmail, authorPhoto, publisher, isPremium, tags, image, articleStatus, createdAt } = article;
@@ -154,7 +155,9 @@ const ArticleRow = ({ article, index, refetch }) => {
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-8 w-11 object-cover border rounded border-[#2d5dc4]' src={image} alt="publisher image" /></td>
 
-            <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span title={title}>{title.slice(0, 10)}...</span></td>
+            <td>
+                <Link to={`/dashboard/author-article-details/${_id}`} scope='row' className='py-1 px-4 font-medium whitespace-nowrap inline-block'><span title={title}>{title.slice(0, 10)}...</span></Link>
+            </td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span title={publisher?.name}>{publisher?.name.slice(0, 12)}...</span></td>
 
