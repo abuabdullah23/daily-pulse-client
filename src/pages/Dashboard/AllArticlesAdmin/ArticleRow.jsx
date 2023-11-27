@@ -175,7 +175,7 @@ const ArticleRow = ({ article, index, refetch }) => {
             </td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                <span className={`py-[2px] px-2 rounded-sm ${articleStatus === 'pending' ? 'bg-[#ffd104] text-black' : articleStatus === 'approved' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`} >{articleStatus}</span>
+                <span className={`py-[2px] px-2 rounded-sm ${articleStatus === 'pending' ? 'bg-[#ffd104] text-black' : articleStatus === 'approved' ? 'bg-green-500 text-white' : 'bg-[#ff2929] text-white'}`} >{articleStatus}</span>
             </td>
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
@@ -193,7 +193,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                                 <button
                                     onClick={() => setIsOpen(true)}
                                     title='Decline Article'
-                                    className='py-[2px] px-1 bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'>decline
+                                    className='py-[2px] px-1 bg-[#ff2929] rounded-sm hover:shadow-lg hover:shadow-[#ff2929]/50'>decline
                                 </button>
                         }
                         {
@@ -225,7 +225,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                         <button
                             onClick={() => handleDeleteArticle(_id)}
                             title='Delete Article'
-                            className='py-[2px] px-2 bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50 flex flex-row items-center gap-1'><FaTrashAlt />
+                            className='py-[2px] px-2 bg-[#ff2929] rounded-sm hover:shadow-lg hover:shadow-[#ff2929]/50 flex flex-row items-center gap-1'><FaTrashAlt />
                         </button>
                         {isPremium === 'false' ? <button
                             onClick={() => handleMakePremium(_id)}

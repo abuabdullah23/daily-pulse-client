@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import { dashboardNav } from "../utils/dashboardNavItem";
 import logo from '../assets/images/logo/logo-dark.png';
+import { FaHome } from "react-icons/fa";
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
     const { pathname } = useLocation();
@@ -16,6 +17,9 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                         <img src={logo} alt="logo" />
                     </Link>
                 </div>
+
+                <hr className="border-b border-[#121c36] mb-3" />
+
                 <div className="px-4">
                     <ul>
                         {
@@ -37,6 +41,16 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                         </li>
                     </ul>
                 </div>
+
+                <hr className="border-b border-[#121c36] my-3" />
+                <ul className="px-4">
+                    <Link to='/'>
+                        <button className="text-[#d0d2d6] font-normal duration-200 px-3 py-2 rounded-sm flex justify-start items-center gap-3 hover:pl-4 hover:bg-slate-600 transition-all w-full mb-1">
+                            <span><FaHome /></span>
+                            <span>Home</span>
+                        </button>
+                    </Link>
+                </ul>
 
             </div>
         </div>

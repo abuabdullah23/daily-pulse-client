@@ -12,6 +12,7 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import AllArticlesAdmin from "../pages/Dashboard/AllArticlesAdmin/AllArticlesAdmin";
 import AddPublisher from "../pages/Dashboard/AddPublisher/AddPublisher";
 import AdminRoute from "./AdminRoute";
+import MyArticles from "../pages/MyArticles/MyArticles";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: '/add-article',
                 element: <PrivateRoute><AddArticle /></PrivateRoute>,
+            },
+            {
+                path: '/my-articles',
+                element: <PrivateRoute><MyArticles /></PrivateRoute>,
             },
 
         ]

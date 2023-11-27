@@ -20,7 +20,8 @@ const useAllArticle = ({ pageNumber, perPage }) => {
             const res = await axiosSecure.get(`/get-all-article?pageNumber=${pageNumber}&perPage=${perPage}`)
             // console.log(res.data.result);
             return res.data.result;
-        }
+        },
+        retry: 10
     })
 
     return { totalArticle, allArticle, refetch, isLoading };

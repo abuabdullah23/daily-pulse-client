@@ -21,9 +21,9 @@ const Header = ({ showSidebar, setShowSidebar }) => {
                 </div>
 
                 <div>
-
+                    {/* important this empty div for flex: Don't remove this. */}
                 </div>
-                
+
                 <div className='flex justify-center items-center gap-8 relative'>
                     <div className='flex justify-center items-center'>
                         <div className='flex justify-center items-center gap-3'>

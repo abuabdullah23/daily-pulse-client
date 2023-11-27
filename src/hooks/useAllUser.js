@@ -21,7 +21,8 @@ const useAllUser = ({ pageNumber, perPage }) => {
             const res = await axiosSecure.get(`/get-users?pageNumber=${pageNumber}&perPage=${perPage}`)
             // console.log(res.data.result);
             return res.data.result;
-        }
+        },
+        retry: 10
     })
     return { totalUser, allUser, refetch, isLoading };
 };
