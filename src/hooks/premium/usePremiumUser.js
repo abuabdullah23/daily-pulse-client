@@ -11,7 +11,7 @@ const usePremiumUser = () => {
         enabled: !loading,
         queryFn: async () => {
             const res = await axiosSecure.get(`/check-premium-user/${user?.email}`);
-            // console.log(res.data);
+            // console.log(res.data.isPremiumUser);
             return res.data.isPremiumUser;
         }
     })

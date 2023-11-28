@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/premium-article-details/:id',
-                element: <PremiumArticlesDetails />
+                element: <PremiumUserRoute><PremiumArticlesDetails /></PremiumUserRoute>
             },
 
         ]
