@@ -16,39 +16,44 @@ const ArticleDetails = ({ article, isLoading }) => {
             {isLoading ? <LoadingSpinner /> : <>
                 <h2 className='text-3xl font-semibold py-8'>{title}</h2>
 
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-5'>
                     <div className='flex justify-center'>
-                        <div className='w-full h-[240px] md:h-[320px] lg:h-[460px] transition-all duration-300 rounded-md border border-slate-500'>
+                        <div className='w-full h-[240px] md:h-[320px] lg:h-[460px] transition-all duration-300 rounded-md border border-slate-500 relative'>
                             <img src={image} className='w-full h-full object-cover object-top rounded-md overflow-hidden' alt="article image" />
+
+                            <div className='flex items-center gap-1 absolute right-0 -bottom-8'>
+                                <div>
+                                    <p className='font-semibold'>{views}</p>
+                                </div>
+                                <div>
+                                    <span>views</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div className='flex items-center justify-between'>
-                        <div className='flex items-center gap-2 md:gap-4'>
-                            <div>
-                                <img className='w-10 h-10' src={authorPhoto} alt="author photo" />
+                    <div className='flex items-center'>
+                        <div className='flex flex-col md:flex-row items-start md:items-center justify-start  gap-4'>
+                            {/* author info */}
+                            <div className='flex items-center gap-2'>
+                                <div>
+                                    <img className='w-10 h-10' src={authorPhoto} alt="author photo" />
+                                </div>
+                                <div>
+                                    <h3 className='text-base font-medium'>{authorName}</h3>
+                                    <h3 className='text-sm'>{authorEmail}</h3>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className='text-base font-medium'>{authorName}</h3>
-                                <h3 className='text-sm'>{authorEmail}</h3>
+
+                            {/* Publisher info */}
+                            <div title={publisher?.name} className='flex items-center gap-2'>
+                                <img className='p-1 py-1 rounded-sm h-10 bg-gray-50' src={publisher?.image} alt="publisher icon" />
+                                <div className='flex flex-col'>
+                                    <h2 className='text-xs font-light dark:text-gray-200'>Publisher</h2>
+                                    <h2 className='text-base font-light dark:text-gray-200'>{publisher?.name}</h2>
+                                </div>
                             </div>
                         </div>
-                        <div className='flex items-center gap-1'>
-                            <div>
-                                <p className='font-semibold'>{views}</p>
-                            </div>
-                            <div>
-                                <span>views</span>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div><h2 className='text-xl font-light dark:text-gray-200'>Publisher: {publisher?.name}</h2></div>
-
-                    <div className='flex flex-col md:flex-row items-start md:items-center  gap-1 md:gap-3'>
-                        <p className='text-sm font-medium'>Published: <span className='font-normal'>{moment(createdAt).format("D MMM YYYY, h:mm A")}</span></p>
-                        <p className='text-sm font-medium'>Updated: <span className='font-normal'>{moment(updatedAt).format("D MMM YYYY, h:mm A")}</span></p>
                     </div>
 
                     <div className='flex items-center gap-2'>
@@ -67,8 +72,6 @@ const ArticleDetails = ({ article, isLoading }) => {
                             }
                         </div>
                     </div>
-
-
 
                     {tags &&
                         <div className='flex items-center flex-wrap gap-2'>
@@ -89,12 +92,17 @@ const ArticleDetails = ({ article, isLoading }) => {
                         </div>
                     }
 
+                    <div className='flex flex-col md:flex-row items-start md:items-center  gap-1 md:gap-3'>
+                        <p className='text-sm font-medium text-slate-500 dark:text-gray-400'>Published: <span className='font-normal'>{moment(createdAt).format("D MMM YYYY, h:mm A")}</span></p>
+                        {/* <p className='text-sm font-medium'>Updated: <span className='font-normal'>{moment(updatedAt).format("D MMM YYYY, h:mm A")}</span></p> */}
+                    </div>
+
                     <div>
-                        <p className='text-xl font-normal'>{description}</p>
+                        <p className='text-xl font-normal -mt-4'>{description}</p>
                     </div>
                 </div>
             </>}
-        </div>
+        </div >
     );
 };
 

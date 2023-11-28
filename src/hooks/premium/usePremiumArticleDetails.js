@@ -11,7 +11,7 @@ const usePremiumArticleDetails = (id) => {
         queryKey: ['viewPremiumArticle', id],
         queryFn: async () => {
             const res = await axiosSecure.get(`/view-premium-article-details/${id}?email=${user?.email}`)
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         },
         retry: 0

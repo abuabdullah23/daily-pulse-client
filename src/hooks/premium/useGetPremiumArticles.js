@@ -8,9 +8,9 @@ const useGetPremiumArticles = () => {
     const { data: premiumArticles = [], refetch, isLoading } = useQuery({
         queryKey: ['premiumArticles'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/get-premium-articles`)
-            // console.log(res.data.result);
-            return res.data.result;
+            const res = await axiosSecure.get('/get-premium-articles')
+            // console.log(res.data);
+            return res.data;
         },
         retry: 10
     })

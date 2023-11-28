@@ -28,7 +28,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 79%;
+    width: 75%;
     left: 4%;
     display: flex;
     justify-content: space-between;
@@ -77,6 +77,10 @@
     .slider {
         height: 200px;
     }
+
+    .slider .buttons {
+        width: 81%;
+    }
 }
 
 
@@ -84,5 +88,9 @@
 @media screen and (min-width:577px) and (max-width:992px) {
     .slider {
         height: 300px;
+    }
+
+    .slider .buttons {
+        width: 85%;
     }
 }

@@ -153,7 +153,19 @@ const ArticleRow = ({ article, index, refetch }) => {
                 <div className='w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center'>{index + 1}</div>
             </td>
 
-            <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img title={`${views} views`} className='h-8 w-11 object-cover border rounded border-[#2d5dc4]' src={image} alt="publisher image" /></td>
+            <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
+                <div className='relative'>
+                    <img title={`${views} views`} className='h-8 w-11 object-cover border rounded border-[#2d5dc4]' src={image} alt="publisher image" />
+                    <div className='flex items-center gap-1 absolute -right-7 -top-3 py-[1px] px-[4px] bg-indigo-600 rounded-[2px] text-white text-xs'>
+                        <div>
+                            <p>{views}</p>
+                        </div>
+                        <div>
+                            <span className='font-normal'>views</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
 
             <td>
                 <Link to={`/dashboard/author-article-details/${_id}`} scope='row' className='py-1 px-4 font-medium whitespace-nowrap inline-block'><span title={title}>{title.slice(0, 10)}...</span></Link>
