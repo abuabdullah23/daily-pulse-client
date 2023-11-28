@@ -18,6 +18,12 @@ import MyArticleDetails from "../pages/MyArticles/MyArticleDetails";
 import ViewArticleDetails from "../pages/Dashboard/AllArticlesAdmin/ViewArticleDetails";
 import AllArticles from "../pages/AllArticles/AllArticles";
 import ApprovedArticleDetails from "../pages/ApprovedArticleDetails/ApprovedArticleDetails";
+import MyProfile from "../pages/MyProfile/MyProfile";
+import PremiumArticles from "../pages/PremiumArticles/PremiumArticles";
+import PremiumArticlesDetails from "../pages/PremiumArticles/PremiumArticlesDetails";
+import PremiumUserRoute from "./PremiumUserRoute";
+import Subscription from "../pages/Subscription/Subscription";
+import MakePayment from "../pages/Subscription/MakePayment";
 
 const router = createBrowserRouter([
     {
@@ -47,6 +53,14 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><UpdateArticle /></PrivateRoute>,
             },
             {
+                path: '/subscription',
+                element: <PrivateRoute><Subscription /></PrivateRoute>,
+            },
+            {
+                path: '/make-payment',
+                element: <PrivateRoute><MakePayment /></PrivateRoute>,
+            },
+            {
                 path: '/author-article-details/:id',
                 element: <PrivateRoute><MyArticleDetails /></PrivateRoute>,
             },
@@ -54,6 +68,21 @@ const router = createBrowserRouter([
                 path: '/approved-article-details/:id',
                 element: <PrivateRoute><ApprovedArticleDetails /></PrivateRoute>,
             },
+            {
+                path: '/my-profile',
+                element: <PrivateRoute>< MyProfile /></PrivateRoute>,
+            },
+
+            // premium user Routes 
+            {
+                path: '/premium-articles',
+                element: <PremiumUserRoute><PremiumArticles /></PremiumUserRoute>
+            },
+            {
+                path: '/premium-article-details/:id',
+                element: <PremiumArticlesDetails />
+            },
+
         ]
     },
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaTrashAlt, FaUser } from 'react-icons/fa';
-import { MdRemoveModerator } from "react-icons/md";
+import { MdRemoveModerator, MdWorkspacePremium } from "react-icons/md";
 import useAllUser from '../../../hooks/useAllUser';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
@@ -111,6 +111,7 @@ const AllUsers = () => {
                                             <th scope='col' className='py-3 px-4'>Image</th>
                                             <th scope='col' className='py-3 px-4'>Email</th>
                                             <th scope='col' className='py-3 px-4'>Name</th>
+                                            <th scope='col' className='py-3 px-4'>Is Premium</th>
                                             <th scope='col' className='py-3 px-4'>Role</th>
                                             <th scope='col' className='py-3 px-4'>Action</th>
                                         </tr>
@@ -119,9 +120,26 @@ const AllUsers = () => {
                                         {
                                             allUser.map((u, i) => <tr key={i}>
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
+
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded border-blue-800' src={u?.image} alt="publisher image" /></td>
+
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{u?.email}</span></td>
+
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{u?.name}</span></td>
+
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
+                                                    {u?.role === 'admin' ? '' :
+                                                        <p className='flex items-center gap-2'>{u?.isPremium ?
+                                                            <span className='py-[2px] px-1 w-fit text-xs bg-green-600 text-white rounded-sm flex items-center gap-1'>
+                                                                <MdWorkspacePremium className='h-[16px] w-[16px]' />
+                                                                <span>Premium</span>
+                                                            </span> :
+                                                            <span className='py-[2px] px-1 w-fit text-xs bg-red-600 text-white rounded-sm flex items-center gap-1'>
+                                                                <span>only user</span>
+                                                            </span>}
+                                                        </p>
+                                                    }
+                                                </td>
 
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
                                                     {

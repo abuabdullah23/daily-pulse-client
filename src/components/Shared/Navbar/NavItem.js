@@ -30,7 +30,7 @@ export const loggedUserNav = [
         title: 'Premium Articles'
     },
     {
-        path: '/profile',
+        path: '/my-profile',
         title: 'Profile'
     }
 ]

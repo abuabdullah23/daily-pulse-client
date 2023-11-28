@@ -14,7 +14,7 @@ const useViewApprovedArticle = (id) => {
             // console.log(res.data);
             return res.data;
         },
-        retry: 3
+        retry: 0
     })
 
     return { viewApprovedArticle, refetch, isLoading };

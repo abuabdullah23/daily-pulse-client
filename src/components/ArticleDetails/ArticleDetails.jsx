@@ -3,9 +3,13 @@ import moment from 'moment';
 import { IoMdPricetag } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import useAuth from '../../hooks/useAuth';
+import useAdmin from '../../hooks/useAdmin';
 
 const ArticleDetails = ({ article, isLoading }) => {
     const { title, authorName, authorEmail, authorPhoto, publisher, isPremium, articleStatus, views, tags, image, description, createdAt, updatedAt } = article;
+    const { user } = useAuth();
+    const [isAdmin] = useAdmin();
 
     return (
         <div className='pb-8'>
@@ -48,9 +52,11 @@ const ArticleDetails = ({ article, isLoading }) => {
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <div className='py-1 whitespace-nowrap'>
+
+                        {user?.email === authorEmail || isAdmin ? <div className='py-1 whitespace-nowrap'>
                             <span title={articleStatus} className={`py-[2px] px-2 rounded-sm ${articleStatus === 'pending' ? 'bg-[#ffd104] text-black' : articleStatus === 'approved' ? 'bg-green-500 text-white' : 'bg-[#ff2929] text-white'}`} >{articleStatus}</span>
-                        </div>
+                        </div> : ''}
+
                         <div className='py-1 whitespace-nowrap text-white'>
                             {
                                 isPremium === 'true' && <p title='Premium Article'
@@ -61,6 +67,8 @@ const ArticleDetails = ({ article, isLoading }) => {
                             }
                         </div>
                     </div>
+
+
 
                     {tags &&
                         <div className='flex items-center flex-wrap gap-2'>

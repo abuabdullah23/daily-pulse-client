@@ -6,7 +6,7 @@ const useViewSingleArticle = (id) => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    // get single article for all user : with out user and author 
+    // get single article for all user : in this route user can get only his own article and update his own article 
     const { data: singleArticle = [], refetch, isLoading } = useQuery({
         queryKey: ['singleArticle', id],
         queryFn: async () => {

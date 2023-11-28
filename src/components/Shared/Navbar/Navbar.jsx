@@ -79,7 +79,7 @@ const Navbar = () => {
                         </ul>
                     </div> */}
 
-                    <div className={`${show ? 'absolute bg-[var(--body)] z-[9999] w-3/4 h-screen -top-3 -left-5 p-8' : 'hidden'} lg:hidden`}>
+                    <div className={`${show ? 'absolute bg-[var(--body)] z-[9999] w-3/4 h-screen -top-4 -left-5 p-8' : 'hidden'} lg:hidden`}>
                         <ul className='flex flex-col items-start gap-4 font-semibold'>
                             {allNav.map((nav) => (
                                 <li key={nav.id} onClick={() => setShow(false)}>
