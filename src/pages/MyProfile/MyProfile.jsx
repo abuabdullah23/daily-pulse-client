@@ -12,6 +12,7 @@ import { imageUpload } from '../../utils/imageUpload';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { FadeLoader } from 'react-spinners';
 
 const MyProfile = () => {
     const { singleUser, refetch, isLoading } = useSingleUser();
@@ -30,11 +31,12 @@ const MyProfile = () => {
         const yourName = form.yourName.value;
         const profileImage = event.target.profileImage.files[0];
 
-        const isChange = yourName !== name || profileImage !== image;
+        // const isChange = yourName !== name || profileImage !== image;
+        const isChange = yourName !== name || event.target.profileImage.files.length > 0;
 
         if (!isChange) {
             toast.error("You didn't change anything");
-            setLoader(false)
+            setLoader(false);
             return;
         }
 
@@ -53,13 +55,17 @@ const MyProfile = () => {
                     .then(res => {
                         if (res.status === 200) {
                             toast.success(res?.data?.message);
+                            form.reset('');
                             setLoader(false);
+                            setShow(false);
                             refetch();
                         }
                     })
                     .catch(error => {
                         toast.error(error.message);
-                        setLoader(false)
+                        form.reset('');
+                        setLoader(false);
+                        setShow(false);
                     })
             })
     }
@@ -71,8 +77,13 @@ const MyProfile = () => {
             {isLoading ? <LoadingSpinner /> : <>
                 <div className='w-full flex flex-col md:flex-row items-center justify-start gap-8 my-16'>
                     <div className='w-full md:w-1/2 flex items-center justify-center'>
+                        {
+                            loader && <div className='w-screen h-screen flex justify-center items-center fixed left-0 top-0 bg-[#38303033] z-[999]'>
+                                <FadeLoader />
+                            </div>
+                        }
                         <div className='w-[300px] h-[300px]'>
-                            <img className='w-full h-full rounded' src={image} alt="user photo" />
+                            <img className='w-full h-full rounded object-cover object-top' src={image} alt="user photo" />
                         </div>
                     </div>
 
@@ -113,7 +124,7 @@ const MyProfile = () => {
                                 </button>
                             </div>
 
-                            <div className={`${show ? 'h-[220px]' : 'h-0 w-0'} w-full overflow-hidden transition-all duration-300 absolute right-1 top-4 bg-white dark:bg-slate-950 rounded-md border border-slate-500 overflow-y-auto`}>
+                            <div className={`transition-all duration-300 ease-in-out absolute right-1 top-4 bg-white dark:bg-slate-950 rounded-md border border-slate-500 overflow-y-auto w-full ${!show ? 'w-[0px] h-[0px]' : 'h-[220px]'}`}>
                                 <form
                                     onSubmit={updateProfileInfo}
                                     className='flex flex-col gap-3 p-4 text-base font-normal'>
@@ -136,6 +147,7 @@ const MyProfile = () => {
                                     </button>
                                 </form>
                             </div>
+
                         </div>
                     </div>
 

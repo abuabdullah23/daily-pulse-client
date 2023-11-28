@@ -16,7 +16,7 @@ const UpdateArticle = () => {
     const [loader, setLoader] = useState(false);
     const [allPublisher] = useAllPublisher();
     const [selectedOption, setSelectedOption] = useState(singleArticle?.tags);
-    const { _id, title, authorName, authorEmail, authorPhoto, publisher, description } = singleArticle;
+    const { _id, authorName, authorEmail, authorPhoto } = singleArticle;
     const axiosSecure = useAxiosSecure();
     const initialSelectedOption = selectedOption || [];
 
@@ -29,6 +29,25 @@ const UpdateArticle = () => {
         const title = form.title.value;
         const publisher = form.publisher.value;
         const description = form.description.value;
+
+        // check is change any value
+        const isChange =
+            image > 0 ||
+            title !== singleArticle?.title ||
+            publisher !== singleArticle?.publisher?._id ||
+            description !== singleArticle?.description ||
+            JSON.stringify(selectedOption) !== JSON.stringify(singleArticle?.tags);
+
+        // Check if author-related properties have changed
+        (authorName && authorName !== singleArticle?.authorName) ||
+            (authorEmail && authorEmail !== singleArticle?.authorEmail) ||
+            (authorPhoto && authorPhoto !== singleArticle?.authorPhoto);
+
+        if (!isChange) {
+            toast.error("You didn't change anything");
+            setLoader(false);
+            return;
+        }
 
         // upload image
         imageUpload(image || singleArticle?.image)
@@ -78,7 +97,7 @@ const UpdateArticle = () => {
                         </div>
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">article Name</label>
-                            <input required defaultValue={title} type="text" name='title' placeholder='article name is here' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <input required defaultValue={singleArticle?.title} type="text" name='title' placeholder='article name is here' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>
 
@@ -97,7 +116,7 @@ const UpdateArticle = () => {
                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Select publisher</label>
                             <select required name="publisher" id="publisher" className='w-full py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
-                                <option value={publisher?._id}>{publisher?.name}</option>
+                                <option value={singleArticle?.publisher?._id}>{singleArticle?.publisher?.name}</option>
                                 {
                                     allPublisher?.map((p, i) => <option key={i} value={p?._id}>{p?.name}</option>)
                                 }
@@ -121,7 +140,7 @@ const UpdateArticle = () => {
                     <div className='flex flex-col md:flex-row gap-4'>
                         <div className='flex flex-col items-start gap-1 w-full'>
                             <label className='font-semibold' htmlFor="">Description</label>
-                            <textarea required defaultValue={description} rows={8} type="text" name='description' placeholder='Write your article description' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
+                            <textarea required defaultValue={singleArticle?.description} rows={8} type="text" name='description' placeholder='Write your article description' className='w-full py-2 px-2 border bg-transparent border-indigo-400 focus:border-indigo-500 rounded outline-none' />
                         </div>
                     </div>
 
