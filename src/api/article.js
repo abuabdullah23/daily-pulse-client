@@ -19,3 +19,10 @@ export const getAllApprovedArticle = async (pageNumber, perPage) => {
     const data = await response.json();
     return data;
 }
+
+// get all trending
+export const getTrendingArticles = async () => {
+    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/trending-articles`)
+    const data = await response.json();
+    return data;
+}
