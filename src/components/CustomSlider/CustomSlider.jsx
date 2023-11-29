@@ -44,7 +44,7 @@ const CustomSlider = () => {
                 <div className="list mt-4" style={sliderStyle}>
                     {items.map((src, index) => (
                         <div key={index} className="item">
-                            <img className='border-4 border-red-500' src={src} alt="slider image" />
+                            <img className='border-4' src={src} alt="slider image" />
                         </div>
                     ))}
                 </div>

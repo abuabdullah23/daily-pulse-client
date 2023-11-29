@@ -16,7 +16,7 @@ const PremiumArticles = () => {
                     {
                         premiumArticles?.map((pA) => (
                             <div key={pA?._id} 
-                            className='flex flex-col lg:flex-row lg:items-start gap-3 lg:gap-5 mt-5 group'>
+                            className='flex flex-col lg:flex-row lg:items-start gap-3 lg:gap-5 mt-5 group border-b border-slate-300 dark:border-slate-600'>
                                 <div className='lg:w-1/4 w-full h-48 md:h-56 lg:h-52'>
                                     <img title={`${pA?.views} views`} className='w-full h-full rounded-sm object-cover hover:scale-[103%] transition-all duration-300' src={pA?.image} alt="Product image" />
                                 </div>

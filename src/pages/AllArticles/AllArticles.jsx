@@ -3,13 +3,17 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import ArticleCard from './ArticleCard';
 import newsTags from '../AddArticle/tags';
 import useAllPublisher from '../../hooks/useAllPublisher';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { IoReload } from "react-icons/io5";
+
 
 const AllArticles = () => {
     const [pageNumber, setPageNumber] = useState(1)
-    const [perPage, setPerPage] = useState(12);
+    const [perPage, setPerPage] = useState(10);
     const [articles, setArticles] = useState([]);
     const [totalArticle, setTotalArticle] = useState(null);
     const [allPublisher, refetch] = useAllPublisher();
+    const [loading, setLoading] = useState(true);
 
     // for search and filter
     const [searchValue, setSearchValue] = useState('');
@@ -23,14 +27,15 @@ const AllArticles = () => {
         );
         const data = await response.json();
         setArticles(data?.approvedArticles?.articles);
-        setTotalArticle(data?.approvedArticles?.articles?.length)
+        setTotalArticle(data?.approvedArticles?.articles?.length);
+        setLoading(false);
 
         // console.log(data?.total);
         // setAllArticle((prev) => [...prev, ...data]);
     };
 
-    console.log(publisherSlug);
-    console.log(tagValue);
+    // console.log(publisherSlug);
+    // console.log(tagValue);
 
     useEffect(() => {
         getApprovedArticles();
@@ -62,7 +67,7 @@ const AllArticles = () => {
         <div className='pb-12'>
             <SectionTitle sectionTitle={'All Article'} />
 
-            <div className='py-3 px-3 bg-gray-300 dark:bg-slate-900 mb-5 rounded-md flex justify-between items-start border dark:border-slate-500'>
+            <div className='py-3 px-3 bg-gray-300 dark:bg-slate-900 mb-5 rounded-md flex flex-col lg:flex-row justify-between items-center lg:items-start gap-3 border dark:border-slate-500 transition-all duration-300'>
                 <p className='text-lg font-medium text-slate-600 dark:text-gray-300'>Articles: {totalArticle}</p>
 
                 {/* search box */}
@@ -71,7 +76,7 @@ const AllArticles = () => {
                 </div>
 
                 {/* Filter Articles */}
-                <div className='flex items-center gap-4'>
+                <div className='flex flex-col md:flex-row items-center gap-4 '>
                     <div className='flex justify-center items-center gap-3'>
                         <select onChange={(e) => setPublisherSlug(e.target.value)} className='p-1 border dark:border-slate-600 outline-0 dark:bg-slate-950 text-slate-600 dark:text-gray-300 font-semibold' name='' id=''>
                             <option value="">Filter By Publisher</option>
@@ -95,15 +100,26 @@ const AllArticles = () => {
             </div>
 
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                {
-                    articles?.map((article) => <ArticleCard
-                        key={article?._id}
-                        article={article}
+            {
+                loading ? <LoadingSpinner />
+                    : totalArticle === 0 ?
+                        <div className='flex items-center justify-center h-[calc(50vh)]'>
+                            <div className='flex flex-col gap-3 items-center'>
+                                <h3 className='text-2xl font-semibold'>No articles found in your search! Search again</h3>
+                                {/* <button className='p-2 bg-orange-500 hover:bg-indigo-600 rounded-full text-white'><IoReload className='w-5 h-5' /></button> */}
+                            </div>
+                        </div> :
 
-                    />)
-                }
-            </div>
+                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                            {
+                                articles?.map((article) => <ArticleCard
+                                    key={article?._id}
+                                    article={article}
+                                />)
+                            }
+                        </div>
+
+            }
         </div>
     );
 };

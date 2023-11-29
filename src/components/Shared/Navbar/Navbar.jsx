@@ -132,19 +132,20 @@ const Navbar = () => {
                             user ? <>
                                 <div className='flex items-center gap-3 relative'>
                                     <Link to='/my-profile' className='relative'>
-                                        <img className='h-10 w-10 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                        <div className='h-9 w-9 rounded-full'>
+                                            <img className='h-full w-full rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                        </div>
                                         {
-                                            isPremiumUser ? <span title='Premium User' className='p-[4px] w-fit text-base bg-green-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
-                                                <MdWorkspacePremium className='h-[14px] w-[14px]' />
-                                            </span> : isAdmin ? <span title='Admin' className='p-[4px] w-fit text-base bg-purple-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
-                                                <MdAdminPanelSettings className='h-[14px] w-[14px]' />
-                                            </span> : <span title='User' className='p-[4px] w-fit text-base bg-[#fca311] text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
-                                                <FaUserCheck className='h-[14px] w-[14px]' />
+                                            isPremiumUser ? <span title='Premium User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-green-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <MdWorkspacePremium className='h-[12px] w-[12px]' />
+                                            </span> : isAdmin ? <span title='Admin' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-purple-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <MdAdminPanelSettings className='h-[12px] w-[12px]' />
+                                            </span> : <span title='User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-[#fca311] text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <FaUserCheck className='h-[12px] w-[12px]' />
                                             </span>
                                         }
                                     </Link>
                                     <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap'>Log Out</button>
-
                                 </div>
                             </> : <>
                                 <Link className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap' to={'/login'}>Log In</Link>

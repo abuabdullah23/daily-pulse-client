@@ -22,7 +22,7 @@ const ArticleCard = ({ article }) => {
     return (
         <div className={`flex flex-col gap-2 lg:gap-5 mt-5 group rounded-md relative ${isPremium === 'true' ? 'border-2 border-green-500' : 'border-2 border-slate-400'}`}>
             <div className='w-full h-48 md:h-56 lg:h-[240px]'>
-                <img title={`${views} views`} className='w-full h-full rounded-md object-cover' src={image} alt="Product image" />
+                <img title={`${views} views`} className='w-full h-full rounded-t-md object-cover' src={image} alt="Product image" />
             </div>
 
             {
@@ -54,7 +54,7 @@ const ArticleCard = ({ article }) => {
                     </> </span>
                 </div>
 
-                <div className='flex items-center gap-1 w-fit py-[2px] px-[6px] bg-indigo-600 rounded-[2px] text-white text-base'>
+                <div className='flex items-center gap-1 w-fit py-[2px] px-[6px] bg-[#fca311] rounded-[2px] text-[#152444] text-base'>
                     <div>
                         <p>{views}</p>
                     </div>
