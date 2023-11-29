@@ -1,11 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGetPremiumArticles from '../../hooks/premium/useGetPremiumArticles';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const PremiumArticles = () => {
     const { premiumArticles, refetch, isLoading } = useGetPremiumArticles();
+    const navigate = useNavigate();
+
+    // handle premium article details
+    const handlePremiumArticleDetails = (id) => {
+        navigate(`/premium-article-details/${id}`)
+    }
 
     return (
         <div className='pb-8'>
@@ -15,8 +21,8 @@ const PremiumArticles = () => {
                 <div className='grid grid-cols-1 gap-5'>
                     {
                         premiumArticles?.map((pA) => (
-                            <div key={pA?._id} 
-                            className='flex flex-col lg:flex-row lg:items-start gap-3 lg:gap-5 mt-5 group border-b border-slate-300 dark:border-slate-600'>
+                            <div key={pA?._id}
+                                className='flex flex-col lg:flex-row lg:items-start gap-3 lg:gap-5 mt-5 group border-b border-slate-300 dark:border-slate-600'>
                                 <div className='lg:w-1/4 w-full h-48 md:h-56 lg:h-52'>
                                     <img title={`${pA?.views} views`} className='w-full h-full rounded-sm object-cover hover:scale-[103%] transition-all duration-300' src={pA?.image} alt="Product image" />
                                 </div>
@@ -34,9 +40,9 @@ const PremiumArticles = () => {
                                     </div>
 
                                     <div className='flex items-center gap-2'>
-                                        <span className='leading-loose text-base'> <strong>Description:</strong> {pA?.description.slice(0, 300)}... <>  <Link to={`/premium-article-details/${pA?._id}`} className='rounded border-l-4 hover:border-[#203c79] dark:hover:border-[#1835b4] py-0.5 px-2 bg-[#203c79] font-semibold w-fit hover:bg-transparent text-white hover:text-slate-700 dark:hover:text-[#fca311] transition-all duration-500'>
-                                           view details
-                                        </Link></> </span>
+                                        <span className='leading-loose text-base'> <strong>Description:</strong> {pA?.description.slice(0, 300)}... <>  <button onClick={() => handlePremiumArticleDetails(pA?._id)} className='rounded border-l-4 hover:border-[#203c79] dark:hover:border-[#1835b4] px-2 bg-[#203c79] font-medium w-fit hover:bg-transparent text-white hover:text-slate-700 dark:hover:text-[#fca311] transition-all duration-500'>
+                                            view details
+                                        </button></> </span>
 
 
                                     </div>

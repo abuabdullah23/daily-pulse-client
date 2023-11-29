@@ -26,12 +26,13 @@ const AllArticles = () => {
             `${import.meta.env.VITE_BASE_API_URL}/get-approved-articles?publisherSlug=${publisherSlug}&tagValue=${tagValue}&searchValue=${searchValue ? searchValue : ''}&pageNumber=${pageNumber}&perPage=${perPage}`
         );
         const data = await response.json();
-        setArticles(data?.approvedArticles?.articles);
+        const articleData = data?.approvedArticles?.articles;
+        setArticles((prev)=> [...prev, ...articleData]);
         setTotalArticle(data?.approvedArticles?.articles?.length);
         setLoading(false);
 
-        // console.log(data?.total);
-        // setAllArticle((prev) => [...prev, ...data]);
+        console.log(data);
+        // setArticles((prev) => [...prev, ...data]);
     };
 
     // console.log(publisherSlug);
@@ -71,8 +72,8 @@ const AllArticles = () => {
                 <p className='text-lg font-medium text-slate-600 dark:text-gray-300'>Articles: {totalArticle}</p>
 
                 {/* search box */}
-                <div className='flex items-center border border-slate-400 rounded'>
-                    <input onChange={(e) => setSearchValue(e.target.value)} className='w-full h-full relative bg-transparent text-slate-900 dark:text-slate-100 outline-0 py-2 px-3' type="text" placeholder='Search by article title?' />
+                <div className='w-full flex items-center border border-slate-400 rounded'>
+                    <input onChange={(e) => setSearchValue(e.target.value)} className='w-full h-full relative bg-transparent text-slate-900 dark:text-slate-100 outline-0 py-[6px] px-3' type="text" placeholder='Search by article title?' />
                 </div>
 
                 {/* Filter Articles */}

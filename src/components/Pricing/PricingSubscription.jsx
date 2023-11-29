@@ -5,7 +5,7 @@ const PricingSubscription = () => {
     return (
         <div>
             <section className="pb-6 dark:text-gray-100">
-                <div className="container p-4 mx-auto sm:p-5">
+                <div className="container mx-auto sm:p-5">
 
                     {/* 1 */}
                     <div className="grid max-w-md grid-cols-1 gap-6 mx-auto auto-rows-fr lg:grid-cols-3 lg:max-w-full">

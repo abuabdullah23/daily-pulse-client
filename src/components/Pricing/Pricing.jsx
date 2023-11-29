@@ -9,7 +9,7 @@ const Pricing = () => {
     return (
         <div>
             <section className="py-6 dark:text-gray-100">
-                <div className="container p-4 mx-auto sm:p-10">
+                <div className="container mx-auto sm:p-5">
                     <div className="mb-12 space-y-4 text-center">
                         <h1 className="text-4xl font-semibold leadi">Pricing</h1>
                         <p className="px-4 sm:px-8 lg:px-24">Elevate Your Reading Newspaper Experience: Pricing and Subscriptions</p>
