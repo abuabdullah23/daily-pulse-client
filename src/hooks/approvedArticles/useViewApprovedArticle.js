@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import useAuth from './useAuth';
-import useAxiosSecure from './useAxiosSecure';
+import useAuth from '../useAuth';
+import useAxiosSecure from '../useAxiosSecure';
 
 const useViewApprovedArticle = (id) => {
     const axiosSecure = useAxiosSecure();

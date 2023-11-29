@@ -11,3 +11,11 @@ export const getAllPublisher = async () => {
     const data = await response.json();
     return data;
 }
+
+
+// get all approve article : Route: ?pageNumber=4&perPage=3
+export const getAllApprovedArticle = async (pageNumber, perPage) => {
+    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/get-approved-articles?pageNumber=${pageNumber}&perPage=${perPage}`)
+    const data = await response.json();
+    return data;
+}

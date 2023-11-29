@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import useViewApprovedArticle from '../../hooks/useViewApprovedArticle';
+import useViewApprovedArticle from '../../hooks/approvedArticles/useViewApprovedArticle';
 import ArticleDetails from '../../components/ArticleDetails/ArticleDetails';
 
 const ApprovedArticleDetails = () => {

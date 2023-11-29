@@ -3,7 +3,7 @@ import Container from '../../Container/Container';
 import { allNav, loggedUserNav } from './NavItem';
 import { Link } from 'react-router-dom';
 import ActiveLink from '../../ActiveLink/ActiveLink';
-import { FaList } from 'react-icons/fa';
+import { FaList, FaUserCheck } from 'react-icons/fa';
 import logoLight from '../../../assets/images/logo/logo-light.png'
 import logoDark from '../../../assets/images/logo/logo-dark.png'
 import smallLogoLight from '../../../assets/images/logo/favicon.png'
@@ -12,10 +12,13 @@ import DarkMode from '../../ThemeToggle/ThemeToggle';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import useAdmin from '../../../hooks/useAdmin';
+import usePremiumUser from '../../../hooks/premium/usePremiumUser';
+import { MdAdminPanelSettings, MdWorkspacePremium } from 'react-icons/md';
 
 const Navbar = () => {
     const { user, logOut, setLoading } = useAuth();
     const [isAdmin] = useAdmin();
+    const [isPremiumUser] = usePremiumUser();
     const [show, setShow] = useState(false);
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem("theme") || "dark";
@@ -127,9 +130,21 @@ const Navbar = () => {
                         <DarkMode theme={theme} setTheme={setTheme} />
                         {
                             user ? <>
-                                <div className='flex items-center gap-3'>
-                                    <img className='h-8 w-8 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                <div className='flex items-center gap-3 relative'>
+                                    <Link to='/my-profile' className='relative'>
+                                        <img className='h-10 w-10 rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                        {
+                                            isPremiumUser ? <span title='Premium User' className='p-[4px] w-fit text-base bg-green-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <MdWorkspacePremium className='h-[14px] w-[14px]' />
+                                            </span> : isAdmin ? <span title='Admin' className='p-[4px] w-fit text-base bg-purple-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <MdAdminPanelSettings className='h-[14px] w-[14px]' />
+                                            </span> : <span title='User' className='p-[4px] w-fit text-base bg-[#fca311] text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <FaUserCheck className='h-[14px] w-[14px]' />
+                                            </span>
+                                        }
+                                    </Link>
                                     <button onClick={handleLogOut} className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap'>Log Out</button>
+
                                 </div>
                             </> : <>
                                 <Link className='text-gray-600 dark:text-gray-100 hover:text-[#fca311] font-semibold whitespace-nowrap' to={'/login'}>Log In</Link>

@@ -1,11 +1,23 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BiLogOutCircle } from "react-icons/bi";
 import { dashboardNav } from "../utils/dashboardNavItem";
 import logo from '../assets/images/logo/logo-dark.png';
 import { FaHome } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
     const { pathname } = useLocation();
+    const { logOut } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        logOut()
+            .then(res => {
+                navigate('/');
+                toast.success('Successfully Logout')
+            })
+    }
 
     return (
         <div>
@@ -33,12 +45,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                                 </Link>
                             </li>)
                         }
-                        <li>
-                            <button className="text-[#d0d2d6] font-normal duration-200 px-3 py-2 rounded-sm flex justify-start items-center gap-3 hover:pl-4 hover:bg-slate-600 transition-all w-full mb-1">
-                                <span><BiLogOutCircle /></span>
-                                <span>Logout</span>
-                            </button>
-                        </li>
+
                     </ul>
                 </div>
 
@@ -50,6 +57,12 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                             <span>Home</span>
                         </button>
                     </Link>
+                    <li>
+                        <button onClick={handleLogOut} className="text-[#d0d2d6] font-normal duration-200 px-3 py-2 rounded-sm flex justify-start items-center gap-3 hover:pl-4 hover:bg-slate-600 transition-all w-full mb-1">
+                            <span><BiLogOutCircle /></span>
+                            <span>Logout</span>
+                        </button>
+                    </li>
                 </ul>
 
             </div>
