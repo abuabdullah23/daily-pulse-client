@@ -3,6 +3,7 @@ import useAllArticle from '../../../hooks/useAllArticle';
 import ArticleRow from './ArticleRow';
 import Pagination from '../../../components/Pagination/Pagination';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import ArticleStatistics from './ArticleStatistics/ArticleStatistics';
 
 const AllArticlesAdmin = () => {
     const [pageNumber, setPageNumber] = useState(1)
@@ -13,7 +14,9 @@ const AllArticlesAdmin = () => {
     return (
         <div className='px-2 lg:px-7 pt-5'>
 
-            <div className='w-full p-4 bg-[#283046] rounded-md'>
+            <ArticleStatistics />
+
+            <div className='w-full p-4 bg-[#283046] rounded-md mt-5'>
                 <h2 className='text-lg font-semibold mb-2'> All Articles: {totalArticle}</h2>
                 {
                     isLoading ? <LoadingSpinner /> :

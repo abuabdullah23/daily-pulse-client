@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import useAuth from '../../../hooks/useAuth';
 import Pagination from '../../../components/Pagination/Pagination';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import UsersStatistics from './UsersStatistics';
 
 const AllUsers = () => {
     const [pageNumber, setPageNumber] = useState(1);
@@ -96,7 +97,9 @@ const AllUsers = () => {
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
-            <div className='flex flex-wrap w-full'>
+            <UsersStatistics />
+
+            <div className='flex flex-wrap w-full mt-5'>
                 <div className='w-full p-4 bg-[#283046] rounded-md'>
                     {/* Table data */}
                     <h1 className='text-[#d0d2d6] font-semibold text-base mb-2'>All Users: {totalUser}</h1>

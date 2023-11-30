@@ -9,6 +9,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import useAllPublisher from '../../../hooks/useAllPublisher';
 import Swal from 'sweetalert2';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const AddPublisher = () => {
     const [show, setShow] = useState(false);
@@ -98,39 +99,46 @@ const AddPublisher = () => {
             </div>
 
             <div className='flex flex-wrap w-full'>
-                <div className='w-full lg:w-7/12 p-4 bg-[#283046] rounded-md'>
-                    {/* Table data */}
-                    <h1 className='text-[#d0d2d6] font-semibold text-base hidden lg:block mb-2'>Publishers: {allPublisher.length}</h1>
 
-                    <div className='relative overflow-x-auto overflow-y-auto h-[calc(100vh-200px)]'>
-                        <table className='w-full text-sm text-left text-[#ffffff]'>
-                            <thead className='text-sm text-[#ececec] uppercase border-b border-slate-700'>
-                                <tr>
-                                    <th scope='col' className='py-3 px-4'>No</th>
-                                    <th scope='col' className='py-3 px-4'>Logo</th>
-                                    <th scope='col' className='py-3 px-4'>Name</th>
-                                    <th scope='col' className='py-3 px-4'>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    allPublisher.map((item, i) => <tr key={i}>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded bg-gray-100' src={item.image} alt="publisher image" /></td>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{item.name}</span></td>
-                                        <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                                            <div className='flex justify-center items-center gap-4'>
-                                                {/* <Link className='p-[6px] bg-orange-500 rounded-sm hover:shadow-lg hover:shadow-orange-500/50'><FaEdit /></Link> */}
-                                                <button onClick={() => handleDeletePublisher(item._id)} className='p-[6px] bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'><FaTrashAlt /></button>
-                                            </div>
-                                        </td>
-                                    </tr>)
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                <div className='w-full lg:w-7/12 p-4 bg-[#283046] rounded-md'>
+                    {allPublisher.length < 1 ? <LoadingSpinner /> :
+                        <>
+                            {/* Table data */}
+                            <h1 className='text-[#d0d2d6] font-semibold text-base hidden lg:block mb-2'>Publishers: {allPublisher.length}</h1>
+
+                            <div className='relative overflow-x-auto overflow-y-auto h-[calc(100vh-200px)]'>
+                                <table className='w-full text-sm text-left text-[#ffffff]'>
+                                    <thead className='text-sm text-[#ececec] uppercase border-b border-slate-700'>
+                                        <tr>
+                                            <th scope='col' className='py-3 px-4'>No</th>
+                                            <th scope='col' className='py-3 px-4'>Logo</th>
+                                            <th scope='col' className='py-3 px-4'>Name</th>
+                                            <th scope='col' className='py-3 px-4'>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            allPublisher.map((item, i) => <tr key={i}>
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded bg-gray-100' src={item.image} alt="publisher image" /></td>
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{item.name}</span></td>
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
+                                                    <div className='flex justify-center items-center gap-4'>
+                                                        {/* <Link className='p-[6px] bg-orange-500 rounded-sm hover:shadow-lg hover:shadow-orange-500/50'><FaEdit /></Link> */}
+                                                        <button onClick={() => handleDeletePublisher(item._id)} className='p-[6px] bg-red-500 rounded-sm hover:shadow-lg hover:shadow-red-500/50'><FaTrashAlt /></button>
+                                                    </div>
+                                                </td>
+                                            </tr>)
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </>
+                    }
 
                 </div>
+
+
 
                 <div className={`w-[320px] lg:w-5/12 translate-x-100 lg:relative lg:right-0 fixed ${show ? 'right-0 z-[9999]' : '-right-[340px]'}  top-0 transition-all duration-500`}>
                     <div className='w-full pl-6'>

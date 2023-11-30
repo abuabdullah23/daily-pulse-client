@@ -1,9 +1,10 @@
-import React from 'react';
 
 const Dashboard = () => {
+
+
     return (
-        <div>
-            Dashboard Page
+        <div className='px-2 lg:px-7 pt-5'>
+
         </div>
     );
 };
