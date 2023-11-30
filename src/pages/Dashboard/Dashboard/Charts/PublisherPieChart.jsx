@@ -3,16 +3,18 @@ import Chart from 'react-google-charts';
 import useGetPublisherPercentage from '../../../../hooks/adminHooks/useGetPublisherPercentage';
 
 const PublisherPieChart = () => {
-const {publisherPercentage, refetch, isLoading}= useGetPublisherPercentage();
-
+    const { publisherPercentage, refetch, isLoading } = useGetPublisherPercentage();
 
     const data = [
         ["Publications", "Percentage"],
-        ["Work", 11],
-        ["Eat", 2],
-        ["Commute", 2],
-        ["Watch TV", 2],
-        ["Sleep", 7],
+        ["CNN", 11],
+        ["Dhaka Tribune", 20],
+        ["Daily Sun", 10],
+        ["Daily Pulse", 5],
+        ["Al Jazira", 15],
+        ["The Daily Star", 25],
+        ["Real Time", 7],
+        ["The Daily Sun", 10],
     ];
 
     const options = {
@@ -21,10 +23,10 @@ const {publisherPercentage, refetch, isLoading}= useGetPublisherPercentage();
     };
 
 
-
     return (
         <div>
             <Chart
+                className='bg-[#050000]'
                 chartType="PieChart"
                 data={data}
                 options={options}

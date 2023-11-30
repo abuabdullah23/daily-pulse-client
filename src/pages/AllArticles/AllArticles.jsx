@@ -31,6 +31,7 @@ const AllArticles = () => {
         setTotalArticle(data?.approvedArticles?.articles?.length);
         setLoading(false);
 
+
         console.log(data);
         // setArticles((prev) => [...prev, ...data]);
     };

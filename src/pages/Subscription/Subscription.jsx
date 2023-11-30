@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PricingSubscription from '../../components/Pricing/PricingSubscription';
 import usePremiumUser from '../../hooks/premium/usePremiumUser';
+import useAdmin from '../../hooks/useAdmin';
 
 const Subscription = () => {
     const [amount, setAmount] = useState('');
     const [period, setPeriod] = useState('');
     const [isPremiumUser] = usePremiumUser();
+    const [isAdmin] = useAdmin();
     const navigate = useNavigate();
 
     // Subscription period options
@@ -80,7 +82,7 @@ const Subscription = () => {
                 </div>
             </div>
 
-            {!isPremiumUser && <div className='flex items-center justify-center'>
+            {!isPremiumUser && !isAdmin && <div className='flex items-center justify-center'>
                 <button onClick={goToPay} className={`rounded border-2 hover:border-[#203c79] py-2 px-3 bg-[#fca311] font-semibold hover:bg-transparent text-slate-900 hover:text-[#000000] dark:hover:text-gray-200 transition-all duration-300 ${!amount && 'hidden transition-all duration-500'}`}>Subscription</button>
             </div>}
         </div>

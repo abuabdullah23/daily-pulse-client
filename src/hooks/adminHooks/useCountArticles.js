@@ -9,7 +9,7 @@ const useCountAllArticle = () => {
         queryKey: ['countArticles'],
         queryFn: async () => {
             const res = await axiosSecure.get('/count-articles')
-            console.log(res);
+            // console.log(res);
             return res.data;
         },
     })
