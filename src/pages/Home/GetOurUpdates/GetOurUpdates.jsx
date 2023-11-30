@@ -1,8 +1,10 @@
 import React from 'react';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 
 const GetOurUpdates = () => {
     return (
-        <div>
+        <div className='mt-8'>
+            <SectionTitle sectionTitle={'Get Our Updates'}/> 
             <div className="w-full bg-slate-900 bg-[url(https://i.ibb.co/ssBS53R/breaking-news-interface-screen-design-vector-34408869.jpg)] bg-center bg-blend-multiply bg-cover">
 
                 <div className="container flex flex-col flex-wrap content-center justify-center p-4 py-20 mx-auto md:p-10">

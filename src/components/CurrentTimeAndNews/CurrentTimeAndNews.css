@@ -1,0 +1,33 @@
+.marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: marquee 40s linear infinite;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+/* =============== Responsive for Mobile Device =============== */
+
+@media only screen and (max-width:576px) {
+    .marquee {
+        animation: marquee 3s linear infinite;
+    }
+}
+
+
+/* =============== Responsive for Tablet Device =============== */
+@media screen and (min-width:577px) and (max-width:992px) {
+    .marquee {
+        animation: marquee 30s linear infinite;
+    }
+}

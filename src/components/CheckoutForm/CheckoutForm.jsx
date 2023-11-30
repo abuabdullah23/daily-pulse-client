@@ -1,13 +1,15 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import './CheckoutForm.css'
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
+import Loader from '../Loader/Loader';
+import usePremiumUser from '../../hooks/premium/usePremiumUser';
 
 const CheckoutForm = ({ amount, period }) => {
-
+    const [isPremiumUser, , refetch] = usePremiumUser();
     const stripe = useStripe();
     const elements = useElements();
     const { user } = useAuth();
@@ -76,7 +78,8 @@ const CheckoutForm = ({ amount, period }) => {
 
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id);
-            setSuccess("Your Payment Successful.")
+            toast.success("Your Payment Successful.");
+            refetch();
             const premiumUserInfo = {
                 name: user?.displayName,
                 email: user?.email,
@@ -87,10 +90,12 @@ const CheckoutForm = ({ amount, period }) => {
             }
             axiosSecure.post('/save-subscription-info', premiumUserInfo)
                 .then(res => {
-                    console.log(res.data);
-                    if (res?.data?.status === 200) {
+                    console.log(res.status);
+                    console.log(res.data.message);
+                    if (res?.status === 200) {
                         toast.success(res?.data?.message)
-                        navigate('/premium-articles')
+                        refetch();
+                        navigate('/')
                     }
                 })
         }
@@ -123,7 +128,7 @@ const CheckoutForm = ({ amount, period }) => {
                         <button type="submit"
                             disabled={!stripe || !clientSecret || processing}
                             className='border border-slate-500 hover:bg-indigo-600 hover:text-white transition-all duration-300 py-1 px-2 rounded'>
-                            Pay ${amount}
+                            {processing ? <Loader loadingText={'processing...'} /> : `Pay $${amount}`}
                         </button>
                     </div>
                     {
@@ -132,7 +137,10 @@ const CheckoutForm = ({ amount, period }) => {
 
                     {
                         success && <>
-                            <p className='text-green-600 text-xl bg-neutral-200 py-3 px-5 rounded-md mt-5 md:mt-0'>Your Transaction Id: {transactionId}</p>
+                            <div className='flex flex-col gap-3'>
+                                <p className='text-green-600 text-xl bg-neutral-200 py-3 px-5 rounded-md mt-5 md:mt-0'>Your Transaction Id: {transactionId}</p>
+                                <Link to='/premium-articles' className='border border-slate-500 hover:bg-indigo-600 hover:text-white transition-all duration-300 py-1 px-2 rounded'>Now Read Premium Articles</Link>
+                            </div>
                         </>
                     }
                 </div>

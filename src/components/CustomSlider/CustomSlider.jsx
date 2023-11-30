@@ -51,18 +51,19 @@ const CustomSlider = () => {
 
     return (
         <div className='overflow-hidden'>
+           
             <div className="slider">
 
-                <div className="list mt-6" style={sliderStyle}>
+                <div className="list mt-3" style={sliderStyle}>
                     {articles.map((data, index) => (
                         <div key={index} className="item relative">
                             <img className='border-4' src={data?.image} alt="slider image" />
 
-                            <div className='absolute bottom-0 left-0 py-2 md:py-5 lg:py-8 overflow-hidden bg-black/80 w-full'>
-                                <div className='pb-6 pl-6'>
+                            <div className='absolute bottom-0 left-0 py-1 md:py-5 lg:py-8 overflow-hidden bg-black/80 w-full'>
+                                <div className='pb-2 pl-4 md:pb-6 md:pl-6'>
                                     <d className='text-white flex items-center gap-5'>
                                         <p className='text-base'>{data?.publisher?.name}</p>
-                                        <p className='text-sm'>Published: {moment(data?.createdAt).format("D MMM YYYY, h:mm A")}</p>
+                                        <p className='text-sm hidden md:block'>Published: {moment(data?.createdAt).format("D MMM YYYY, h:mm A")}</p>
                                     </d>
                                     <h2 onClick={() => articleDetails(data?._id)} className='text-lg md:text-2xl lg:text-4xl font-bold cursor-pointer text-[#fca311] hover:text-[#fcc511]'>{data?.title.slice(0, 30)}...</h2>
                                 </div>

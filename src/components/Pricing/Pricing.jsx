@@ -2,6 +2,7 @@ import React from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import SectionTitle from '../SectionTitle/SectionTitle';
 
 const Pricing = () => {
     const { user } = useAuth();
@@ -9,10 +10,10 @@ const Pricing = () => {
     return (
         <div>
             <section className="py-6 dark:text-gray-100">
+                <SectionTitle sectionTitle={'Pricing'} sectionSubtitle={"Elevate Your Reading Newspaper Experience: Pricing and Subscriptions"}/>
                 <div className="container mx-auto sm:p-5">
                     <div className="mb-12 space-y-4 text-center">
-                        <h1 className="text-4xl font-semibold leadi">Pricing</h1>
-                        <p className="px-4 sm:px-8 lg:px-24">Elevate Your Reading Newspaper Experience: Pricing and Subscriptions</p>
+                        {/* <p className="px-4 sm:px-8 lg:px-24">Elevate Your Reading Newspaper Experience: Pricing and Subscriptions</p> */}
                         <div>
                             <button className="px-4 py-1 font-semibold border rounded-lg dark:bg-indigo-400 bg-indigo-700 text-gray-200 dark:border-indigo-400 dark:text-gray-900">Daily</button>
                         </div>

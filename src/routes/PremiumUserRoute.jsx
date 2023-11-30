@@ -19,7 +19,7 @@ const PremiumUserRoute = ({ children }) => {
         return children;
     }
 
-    return <Navigate to='/' state={{ from: location }} replace ></Navigate>;
+    return <Navigate to='/subscription' state={{ from: location }} replace ></Navigate>;
 };
 
 export default PremiumUserRoute;

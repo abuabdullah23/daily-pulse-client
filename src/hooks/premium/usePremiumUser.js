@@ -6,7 +6,7 @@ const usePremiumUser = () => {
     const { user, loading } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { data: isPremiumUser, isLoading: isPremiumUserLoading } = useQuery({
+    const { data: isPremiumUser, isLoading: isPremiumUserLoading, refetch } = useQuery({
         queryKey: ['isPremiumUser', user?.email],
         enabled: !loading,
         queryFn: async () => {
@@ -15,6 +15,6 @@ const usePremiumUser = () => {
             return res.data.isPremiumUser;
         }
     })
-    return [isPremiumUser, isPremiumUserLoading]
+    return [isPremiumUser, isPremiumUserLoading, refetch]
 }
 export default usePremiumUser;
