@@ -9,11 +9,14 @@ import useAuth from '../../../hooks/useAuth';
 import Pagination from '../../../components/Pagination/Pagination';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import UsersStatistics from './UsersStatistics';
+import useCountAllUser from '../../../hooks/adminHooks/useCountUsers';
 
 const AllUsers = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [perPage, setPerPage] = useState(5);
     const { totalUser, allUser, refetch, isLoading } = useAllUser({ pageNumber, perPage });
+    const { refetch: refetchUser } = useCountAllUser();
+
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
@@ -35,6 +38,7 @@ const AllUsers = () => {
                         if (res.status === 200) {
                             toast.success('User deleted successful');
                             refetch();
+                            refetchUser();
                         }
                     })
                     .catch(error => {
@@ -61,6 +65,7 @@ const AllUsers = () => {
                         if (res.status === 200) {
                             toast.success('Successfully make admin');
                             refetch();
+                            refetchUser();
                         }
                     })
                     .catch(error => {
@@ -86,6 +91,7 @@ const AllUsers = () => {
                         if (res.status === 200) {
                             toast.success('Successfully remove admin');
                             refetch();
+                            refetchUser();
                         }
                     })
                     .catch(error => {

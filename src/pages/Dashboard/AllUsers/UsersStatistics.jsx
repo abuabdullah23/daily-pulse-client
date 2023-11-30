@@ -5,7 +5,7 @@ import { FaCircleUser } from "react-icons/fa6";
 import { MdAdminPanelSettings, MdWorkspacePremium } from 'react-icons/md';
 
 const UsersStatistics = () => {
-    const { countAllUsers, refetch, isLoading } = useCountAllUser();
+    const { countAllUsers } = useCountAllUser();
 
     return (
         <div>
@@ -51,7 +51,7 @@ const UsersStatistics = () => {
                         <span>Only user</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl'>
-                    <FaCircleUser className='text-[#7367f0] shadow-lg font-semibold' />
+                        <FaCircleUser className='text-[#7367f0] shadow-lg font-semibold' />
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+import CountUpUser from "../../components/CountUpComp/CountUpUser";
 import CurrentTimeAndNews from "../../components/CurrentTimeAndNews/CurrentTimeAndNews";
 import Pricing from "../../components/Pricing/Pricing";
 import Banner from "./Banner/Banner";
@@ -12,7 +13,7 @@ const Home = () => {
             <Banner />
             <Publishers />
             <MostViewsArticles />
-            
+            <CountUpUser/>
             <Pricing />
             <GetOurUpdates />
         </div>

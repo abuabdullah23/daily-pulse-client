@@ -4,7 +4,7 @@ import { GoCheckCircleFill } from "react-icons/go";
 import useCountAllArticle from "../../../../hooks/adminHooks/useCountArticles";
 
 const ArticleStatistics = () => {
-    const { countArticles, refetch, isLoading } = useCountAllArticle();
+    const { countArticles } = useCountAllArticle();
 
     return (
         <div>

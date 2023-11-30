@@ -27,7 +27,7 @@ const AllArticles = () => {
         );
         const data = await response.json();
         const articleData = data?.approvedArticles?.articles;
-        setArticles((prev)=> [...prev, ...articleData]);
+        setArticles((prev) => [...prev, ...articleData]);
         setTotalArticle(data?.approvedArticles?.articles?.length);
         setLoading(false);
 
@@ -69,11 +69,11 @@ const AllArticles = () => {
             <SectionTitle sectionTitle={'All Article'} />
 
             <div className='py-3 px-3 bg-gray-300 dark:bg-slate-900 mb-5 rounded-md flex flex-col lg:flex-row justify-between items-center lg:items-start gap-3 border dark:border-slate-500 transition-all duration-300'>
-                <p className='text-lg font-medium text-slate-600 dark:text-gray-300'>Articles: {totalArticle}</p>
+                <p className='text-lg font-medium text-slate-600 dark:text-gray-300 whitespace-nowrap'>Articles: {totalArticle}</p>
 
                 {/* search box */}
-                <div className='w-full flex items-center border border-slate-400 rounded'>
-                    <input onChange={(e) => setSearchValue(e.target.value)} className='w-full h-full relative bg-transparent text-slate-900 dark:text-slate-100 outline-0 py-[6px] px-3' type="text" placeholder='Search by article title?' />
+                <div className='w-full md:w-2/3 lg:w-3/5 flex items-center border border-slate-500 rounded ml-0 lg:ml-16 md:mx-auto'>
+                    <input onChange={(e) => setSearchValue(e.target.value)} className='w-full h-full relative bg-transparent text-slate-900 dark:text-slate-100 outline-0 py-[5px] px-3' type="text" placeholder='Search by article title?' />
                 </div>
 
                 {/* Filter Articles */}

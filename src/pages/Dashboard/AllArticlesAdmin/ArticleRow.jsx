@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 import { MdWorkspacePremium } from 'react-icons/md';
 import FeedbackModal from '../../../components/Modal/FeedbackModal';
 import { Link } from 'react-router-dom';
+import useCountAllArticle from '../../../hooks/adminHooks/useCountArticles';
 
 const ArticleRow = ({ article, index, refetch }) => {
     const { _id, title, authorName, authorEmail, authorPhoto, publisher, isPremium, tags, image, articleStatus, createdAt, views } = article;
+    const { refetch: refetchArticle } = useCountAllArticle();
 
     const axiosSecure = useAxiosSecure();
 
@@ -34,6 +36,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                     .then(res => {
                         if (res.status === 200) {
                             refetch();
+                            refetchArticle();
                             toast.success(res.data.message);
                         }
                     })
@@ -59,6 +62,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                     .then(res => {
                         if (res.status === 200) {
                             refetch();
+                            refetchArticle();
                             toast.success(res.data.message);
                         }
                     })
@@ -85,6 +89,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                     .then(res => {
                         if (res.status === 200) {
                             refetch();
+                            refetchArticle();
                             toast.success(res.data.message);
                         }
                     })
@@ -110,6 +115,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                     .then(res => {
                         if (res.status === 200) {
                             refetch();
+                            refetchArticle();
                             toast.success(res.data.message);
                         }
                     })
@@ -135,6 +141,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                     .then(res => {
                         if (res.status === 200) {
                             refetch();
+                            refetchArticle();
                             toast.success(res.data.message);
                         }
                     })

@@ -69,7 +69,7 @@ const AllArticlesAdmin = () => {
                             setPageNumber={setPageNumber}
                             totalItem={totalArticle}
                             perPage={perPage}
-                            showItem={(Math.floor(totalArticle / perPage)) + 2} />
+                            showItem={(Math.floor(totalArticle / perPage)) + 1} />
                     }
                 </div>
             </div>
