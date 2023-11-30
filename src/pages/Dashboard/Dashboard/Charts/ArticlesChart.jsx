@@ -10,40 +10,27 @@ const ArticlesChart = () => {
     const approved = countArticles?.totalApproved
     const premium = countArticles?.totalPremium
 
-
-    const dataOld = [
-        ["Name", "Popularity"],
-        ["Total", 0],
-        ["Pending", 10],
-        ["Approved", 5],
-        ["Premium", 4],
-    ];
-
-    const dataNew = [
+    const data = [
         ["Article", "Status"],
         ["Total", total],
         ["Pending", pending],
         ["Approved", approved],
         ["Premium", premium],
     ];
-
-   const diffdata = {
-        old: dataOld,
-        new: dataNew,
+    const options = {
+        chart: {
+            title: "Articles Statistics",
+            subtitle: "Total, Pending, Approved",
+        },
     };
-
-   const options = {
-        legend: { position: "top" },
-    };
-
 
     return (
         <div>
             <Chart
-                chartType="BarChart"
+                chartType="Bar"
                 width="100%"
                 height="400px"
-                diffdata={diffdata}
+                data={data}
                 options={options}
             />
         </div>
