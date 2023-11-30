@@ -8,8 +8,8 @@ import { IoReload } from "react-icons/io5";
 
 
 const AllArticles = () => {
-    const [pageNumber, setPageNumber] = useState(1)
-    const [perPage, setPerPage] = useState(10);
+    const [pageNumber, setPageNumber] = useState('')
+    const [perPage, setPerPage] = useState('');
     const [articles, setArticles] = useState([]);
     const [totalArticle, setTotalArticle] = useState(null);
     const [allPublisher, refetch] = useAllPublisher();
