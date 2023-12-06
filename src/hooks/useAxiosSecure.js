@@ -29,14 +29,14 @@ const useAxiosSecure = () => {
                     (error.response && error.response.status === 401 || error.response.status === 403)
                 ) {
                     await logOut();
-                    navigate('/sign-up')
+                    navigate('/login')
                 }
                 return Promise.reject(error);
             }
         )
-    }, [logOut, navigate, axiosSecure])
+    }, [logOut, navigate, axiosSecure]) 
 
-    return axiosSecure
+    return axiosSecure //TODO: have to fix redirect
 };
 
 export default useAxiosSecure;

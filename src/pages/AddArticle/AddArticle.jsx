@@ -94,7 +94,7 @@ const AddArticle = () => {
                                 }
                             </select>
                         </div>
-                         <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
+                        <div className='flex flex-col items-start gap-1 w-full md:w-1/2'>
                             <label className='font-semibold' htmlFor="">Tags</label>
                             <Select
                                 className='w-full border text-slate-600 border-indigo-400 focus:border-indigo-500 rounded outline-none'

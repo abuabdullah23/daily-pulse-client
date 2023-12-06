@@ -14,7 +14,7 @@ const Header = ({ showSidebar, setShowSidebar }) => {
                     <span><FaList /></span>
                 </div>
 
-                <div className='text-lg font-medium'>
+                <div className='text-base font-normal hidden lg:block'>
                     Welcome: {user?.email}
                 </div>
 

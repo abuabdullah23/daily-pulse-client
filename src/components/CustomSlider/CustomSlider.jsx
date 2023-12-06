@@ -7,6 +7,7 @@ import moment from 'moment';
 const CustomSlider = () => {
     const [articles, setArticles] = useState([]);
     const navigate = useNavigate();
+    const [active, setActive] = useState(0);
 
     useEffect(() => {
         getTrendingArticles()
@@ -18,8 +19,6 @@ const CustomSlider = () => {
     const articleDetails = (id) => {
         navigate(`/approved-article-details/${id}`)
     }
-
-    const [active, setActive] = useState(0);
 
     const next = () => {
         setActive((active + 1) % articles.length);
@@ -51,7 +50,7 @@ const CustomSlider = () => {
 
     return (
         <div className='overflow-hidden'>
-           
+
             <div className="slider">
 
                 <div className="list mt-3" style={sliderStyle}>

@@ -13,14 +13,16 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { FadeLoader } from 'react-spinners';
+import useAuth from '../../hooks/useAuth';
 
 const MyProfile = () => {
     const { singleUser, refetch, isLoading } = useSingleUser();
-    const { _id, email, name, image, role, isPremium, createdAt } = singleUser;
+    const { _id, email, name, image, role, isPremium, takenPremium, expiresPremium, createdAt } = singleUser;
     const [show, setShow] = useState(false);
     const [isAdmin] = useAdmin();
     const [loader, setLoader] = useState(false);
     const axiosSecure = useAxiosSecure();
+    const { handleUpdateProfile, user } = useAuth();
 
 
     // update profile info
@@ -45,28 +47,48 @@ const MyProfile = () => {
             .then(data => {
                 const imgUrl = data.data.display_url;
 
-                const updateInfo = {
-                    yourName,
-                    imgUrl: imgUrl || image
-                }
-
-                // put method for update profile info
-                axiosSecure.put(`/update-user-profile/${_id}`, updateInfo)
-                    .then(res => {
-                        if (res.status === 200) {
-                            toast.success(res?.data?.message);
-                            form.reset('');
-                            setLoader(false);
-                            setShow(false);
-                            refetch();
-                        }
-                    })
-                    .catch(error => {
-                        toast.error(error.message);
-                        form.reset('');
-                        setLoader(false);
+                // update in firebase
+                handleUpdateProfile(name, imgUrl)
+                    .then(() => {
+                        toast.success('Successfully Updated your Profile!')
+                        setLoader(false)
+                        refetch();
                         setShow(false);
                     })
+                    .catch(error => {
+                        toast.error(error.message)
+                        setLoader(false)
+                        refetch();
+                        setShow(false);
+                    })
+
+
+
+                // update in database
+                // const updateInfo = {
+                //     yourName,
+                //     imgUrl: imgUrl || image
+                // }
+
+                // // put method for update profile info
+                // axiosSecure.put(`/update-user-profile/${_id}`, updateInfo)
+                //     .then(res => {
+                //         if (res.status === 200) {
+                //             toast.success(res?.data?.message);
+                //             form.reset('');
+                //             setLoader(false);
+                //             setShow(false);
+                //             refetch();
+                //         }
+                //     })
+                //     .catch(error => {
+                //         toast.error(error.message);
+                //         form.reset('');
+                //         setLoader(false);
+                //         setShow(false);
+                //     })
+
+
             })
     }
 
@@ -83,7 +105,7 @@ const MyProfile = () => {
                             </div>
                         }
                         <div className='w-[300px] h-[300px]'>
-                            <img className='w-full h-full rounded object-cover object-top' src={image} alt="user photo" />
+                            <img className='w-full h-full rounded object-cover object-top' src={user?.photoURL} alt="user photo" />
                         </div>
                     </div>
 
@@ -91,6 +113,9 @@ const MyProfile = () => {
                         <h3>Name: <span className='font-normal'>{name}</span> </h3>
                         <p>Email: <span className='font-normal'>{email}</span></p>
                         <p>Role: <span className='font-normal'>{firstCharCapitalize(role)}</span></p>
+                        <p>Member Since: <span className='py-1 font-light whitespace-nowrap' title={moment(createdAt).format("D MMMM YYYY, dddd, h:mm:ss A")}>
+                            <span className='text-base font-normal'>{moment(createdAt).format("D MMMM, YYYY")}</span>
+                        </span></p>
                         <div>
                             {isAdmin ? '' :
                                 <p className='flex items-center gap-2'>Premium Status: {isPremium ?
@@ -104,9 +129,20 @@ const MyProfile = () => {
                                 </p>
                             }
                         </div>
-                        <p>Member Since: <span className='py-1 font-light whitespace-nowrap' title={moment(createdAt).format("D MMMM YYYY, dddd, h:mm:ss A")}>
-                            <span className='text-base font-normal'>{moment(createdAt).format("D MMMM, YYYY")}</span>
-                        </span></p>
+
+
+                        {/* premium status */}
+                        {
+                            isPremium &&
+                            <div className='p-2 border border-green-500 rounded mb-3'>
+                                <p>Start: <span className='py-1 font-light whitespace-nowrap' title={moment(takenPremium).format("D MMMM YYYY, dddd, h:mm:ss A")}>
+                                    <span className='text-base font-normal'>{moment(takenPremium).format("D MMM, YYYY | h:mm:ss A")}</span>
+                                </span></p>
+                                <p className='text-[#ffbc04]'>End: <span className='py-1 font-light whitespace-nowrap' title={moment(expiresPremium).format("D MMMM YYYY, dddd, h:mm:ss A")}>
+                                    <span className='text-base font-normal'>{moment(expiresPremium).format("D MMM, YYYY | h:mm:ss A")}</span>
+                                </span></p>
+                            </div>
+                        }
 
 
                         {/* Update profile */}

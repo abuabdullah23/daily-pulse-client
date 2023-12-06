@@ -9,7 +9,7 @@ import { IoReload } from "react-icons/io5";
 
 const AllArticles = () => {
     const [pageNumber, setPageNumber] = useState(1)
-    const [perPage, setPerPage] = useState(100);
+    const [perPage, setPerPage] = useState(30);
     const [articles, setArticles] = useState([]);
     const [totalArticle, setTotalArticle] = useState(null);
     const [allPublisher, refetch] = useAllPublisher();
@@ -27,12 +27,13 @@ const AllArticles = () => {
         );
         const data = await response.json();
         const articleData = data?.approvedArticles?.articles;
-        setArticles((prev) => [...prev, ...articleData]);
+        setArticles(articleData);
+        // setArticles((prev) => [...prev, ...articleData]);
         setTotalArticle(data?.approvedArticles?.articles?.length);
         setLoading(false);
 
 
-        console.log(data);
+        // console.log(data);
         // setArticles((prev) => [...prev, ...data]);
     };
 

@@ -38,7 +38,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className='sticky top-0 z-10 shadow py-4 bg-[var(--secondary)]'>
+        <div className='sticky top-0 z-20 shadow py-4 bg-[var(--secondary)]'>
             <Container>
                 <div className='flex items-center justify-between relative'>
                     <Link to={'/'} className='hidden lg:block'>

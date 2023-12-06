@@ -20,7 +20,7 @@ const ArticlesChart = () => {
     const options = {
         chart: {
             title: "Articles Statistics",
-            subtitle: "Total, Pending, Approved",
+            subtitle: "Total, Pending, Approved, Premium",
         },
     };
 
