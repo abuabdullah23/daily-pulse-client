@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { FadeLoader } from 'react-spinners';
 import useAuth from '../../hooks/useAuth';
+import SubscriptionCountdown from '../../components/SubscriptionCountdown/SubscriptionCountdown';
 
 const MyProfile = () => {
     const { singleUser, refetch, isLoading } = useSingleUser();
@@ -134,13 +135,17 @@ const MyProfile = () => {
                         {/* premium status */}
                         {
                             isPremium &&
-                            <div className='p-2 border border-green-500 rounded mb-3'>
+                            <div className='p-2 border border-green-500 rounded my-3 flex flex-col gap-1'>
                                 <p>Start: <span className='py-1 font-light whitespace-nowrap' title={moment(takenPremium).format("D MMMM YYYY, dddd, h:mm:ss A")}>
                                     <span className='text-base font-normal'>{moment(takenPremium).format("D MMM, YYYY | h:mm:ss A")}</span>
                                 </span></p>
                                 <p className='text-[#ffbc04]'>End: <span className='py-1 font-light whitespace-nowrap' title={moment(expiresPremium).format("D MMMM YYYY, dddd, h:mm:ss A")}>
                                     <span className='text-base font-normal'>{moment(expiresPremium).format("D MMM, YYYY | h:mm:ss A")}</span>
                                 </span></p>
+
+                                {/* Countdown */}
+                                <SubscriptionCountdown expirationTime={expiresPremium}/>
+
                             </div>
                         }
 
