@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SubscriptionCountdown = ({ expirationTime }) => {
+    const navigate = useNavigate();
+
     const calculateTimeRemaining = () => {
         const currentTime = new Date();
         const remainingTime = new Date(expirationTime) - currentTime;
@@ -22,14 +25,27 @@ const SubscriptionCountdown = ({ expirationTime }) => {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setTimeRemaining(calculateTimeRemaining());
+            const remainingTime = calculateTimeRemaining();
+            setTimeRemaining(remainingTime);
+
+            // navigate after end the subscription period
+            if (remainingTime.days === 0 && remainingTime.hours === 0 && remainingTime.minutes === 0 && remainingTime.seconds === 0) {
+
+                
+                // Reload the page after navigation
+                window.location.reload();
+
+                // If the countdown has ended, navigate to the subscription page
+                // navigate('/subscription');
+            }
+
         }, 1000);
 
         return () => clearInterval(intervalId); // Clear the interval on component unmount
-    }, [expirationTime]);
+    }, [expirationTime, navigate]);
 
     return (
-        <div className='w-fit text-base flex items-center justify-center gap-1 bg-green-600 text-white py-[2px] px-[3px] rounded-sm whitespace-nowrap'>
+        <div className='w-fit text-base flex items-center justify-center gap-1 bg-green-600 text-white py-[2px] px-[5px] rounded-sm whitespace-nowrap'>
             <p>Remaining:</p>
             <p>{timeRemaining.days} days</p>
             <p>{timeRemaining.hours}h : </p>

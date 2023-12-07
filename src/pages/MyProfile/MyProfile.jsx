@@ -48,48 +48,52 @@ const MyProfile = () => {
             .then(data => {
                 const imgUrl = data.data.display_url;
 
-                // update in firebase
-                handleUpdateProfile(name, imgUrl)
-                    .then(() => {
-                        toast.success('Successfully Updated your Profile!')
-                        setLoader(false)
-                        refetch();
-                        setShow(false);
-                    })
-                    .catch(error => {
-                        toast.error(error.message)
-                        setLoader(false)
-                        refetch();
-                        setShow(false);
-                    })
-
-
-
-                // update in database
-                // const updateInfo = {
-                //     yourName,
-                //     imgUrl: imgUrl || image
-                // }
-
-                // // put method for update profile info
-                // axiosSecure.put(`/update-user-profile/${_id}`, updateInfo)
-                //     .then(res => {
-                //         if (res.status === 200) {
-                //             toast.success(res?.data?.message);
-                //             form.reset('');
-                //             setLoader(false);
-                //             setShow(false);
-                //             refetch();
-                //         }
+                // // update in firebase
+                // handleUpdateProfile(name, imgUrl)
+                //     .then(() => {
+                //         toast.success('Successfully Updated your Profile!')
+                //         setLoader(false)
+                //         refetch();
+                //         setShow(false);
                 //     })
                 //     .catch(error => {
-                //         toast.error(error.message);
-                //         form.reset('');
-                //         setLoader(false);
+                //         toast.error(error.message)
+                //         setLoader(false)
+                //         refetch();
                 //         setShow(false);
                 //     })
 
 
+
+                // update in database
+                const updateInfo = {
+                    yourName,
+                    imgUrl: imgUrl || image
+                }
+
+                // put method for update profile info
+                axiosSecure.put(`/update-user-profile/${_id}`, updateInfo)
+                    .then(res => {
+                        if (res.status === 200) {
+                            toast.success(res?.data?.message);
+                            form.reset('');
+                            setLoader(false);
+                            setShow(false);
+                            refetch();
+                        }
+                    })
+                    .catch(error => {
+                        toast.error(error.message);
+                        form.reset('');
+                        setLoader(false);
+                        setShow(false);
+                    })
+
+
+            })
+            .catch(error => {
+                toast.error(`${error.message} to upload photo`);
+                setLoader(false);
             })
     }
 
@@ -106,7 +110,7 @@ const MyProfile = () => {
                             </div>
                         }
                         <div className='w-[300px] h-[300px]'>
-                            <img className='w-full h-full rounded object-cover object-top' src={user?.photoURL} alt="user photo" />
+                            <img className='w-full h-full rounded object-cover object-top' src={image} alt="user photo" />
                         </div>
                     </div>
 
@@ -144,7 +148,7 @@ const MyProfile = () => {
                                 </span></p>
 
                                 {/* Countdown */}
-                                <SubscriptionCountdown expirationTime={expiresPremium}/>
+                                <SubscriptionCountdown expirationTime={expiresPremium} />
 
                             </div>
                         }

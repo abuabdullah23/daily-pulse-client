@@ -78,7 +78,7 @@ const CheckoutForm = ({ amount, period }) => {
 
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id);
-            toast.success("Your Payment Successful.");
+            // toast.success("Your Payment Successful.");
             refetch();
             const premiumUserInfo = {
                 name: user?.displayName,

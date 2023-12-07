@@ -29,7 +29,7 @@ const Navbar = () => {
 
     const [showRemaining, setShowRemaining] = useState(false)
     const { singleUser } = useSingleUser();
-    const { expiresPremium } = singleUser;
+    const { image, expiresPremium } = singleUser;
 
 
     // handleLogOut
@@ -141,7 +141,7 @@ const Navbar = () => {
                                 <div className='flex items-center gap-3 relative'>
                                     <div className='relative'>
                                         <div className='h-9 w-9 rounded-full'>
-                                            <img className='h-full w-full rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={user?.photoURL} alt="user image" />
+                                            <img className='h-full w-full rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={image} alt="user image" />
                                         </div>
                                         {
                                             isPremiumUser ? <>
