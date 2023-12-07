@@ -31,8 +31,8 @@ const Login = () => {
         login(email, password)
             .then(res => {
                 toast.success('Login Successful!');
-                setLoading(false);
                 navigate(from, { replace: true });
+                setLoading(false);
 
                 // save user in mongoDB
                 saveUser(res?.user)

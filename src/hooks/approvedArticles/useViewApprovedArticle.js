@@ -4,7 +4,7 @@ import useAxiosSecure from '../useAxiosSecure';
 
 const useViewApprovedArticle = (id) => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure(); //TODO: have to fix redirect
+    const axiosSecure = useAxiosSecure();
     // console.log(axiosSecure);
 
     // get view approved article for all user and increase views one by one 
@@ -12,7 +12,7 @@ const useViewApprovedArticle = (id) => {
         queryKey: ['viewApprovedArticle', id],
         queryFn: async () => {
             const res = await axiosSecure?.get(`/view-approved-article-details/${id}?email=${user?.email}`)
-            console.log(res.data);
+            // console.log(res.data);
             return res.data;
         },
         retry: 0
