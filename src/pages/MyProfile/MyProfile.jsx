@@ -5,13 +5,13 @@ import { firstCharCapitalize } from '../../utils/firstCharCapitalize';
 import useAdmin from '../../hooks/useAdmin';
 import { MdWorkspacePremium } from 'react-icons/md';
 import moment from 'moment';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/LoadingComp/Loader/Loader';
 import { FaEdit } from 'react-icons/fa';
 import { HiMiniXMark } from 'react-icons/hi2';
 import { imageUpload } from '../../utils/imageUpload';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 import { FadeLoader } from 'react-spinners';
 import useAuth from '../../hooks/useAuth';
 import SubscriptionCountdown from '../../components/SubscriptionCountdown/SubscriptionCountdown';
@@ -110,7 +110,7 @@ const MyProfile = () => {
                             </div>
                         }
                         <div className='w-[300px] h-[300px]'>
-                            <img className='w-full h-full rounded object-cover object-top' src={image} alt="user photo" />
+                            <img className='w-full h-full rounded object-cover object-center' src={image} alt="user photo" />
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 import EmptyContent from '../../components/EmptyContent/EmptyContent';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import useMyArticles from '../../hooks/useMyArticles';
 import SingleRow from './SingleRow';
@@ -8,7 +8,7 @@ const MyArticles = () => {
     const { myAllArticle, refetch, isLoading } = useMyArticles();
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <SectionTitle sectionTitle={'My Articles'} />
 
             {

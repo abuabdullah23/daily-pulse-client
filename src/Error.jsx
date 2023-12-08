@@ -1,8 +1,8 @@
 import notFoundPage from "../src/assets/images/lottie/404 animation.json";
 import { Link } from "react-router-dom";
 import { BiSolidHomeCircle } from "react-icons/bi";
-import LottieComp from "./components/LottieCom/LottieComp";
 import { FaHome } from "react-icons/fa";
+import LottieComp from "./components/LottieComp/LottieComp";
 
 const Error = () => {
     return (

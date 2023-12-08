@@ -3,9 +3,10 @@ import useCountAllUser from '../../../hooks/adminHooks/useCountUsers';
 import { FaUsers } from 'react-icons/fa';
 import { FaCircleUser } from "react-icons/fa6";
 import { MdAdminPanelSettings, MdWorkspacePremium } from 'react-icons/md';
+import PuffLoader from 'react-spinners/PuffLoader';
 
 const UsersStatistics = () => {
-    const { countAllUsers } = useCountAllUser();
+    const { countAllUsers, isLoading } = useCountAllUser();
 
     return (
         <div>
@@ -14,7 +15,7 @@ const UsersStatistics = () => {
                 {/* Total users */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countAllUsers?.totalUser}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#28c76f" /> : countAllUsers?.totalUser}</h2>
                         <span>Total users</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#28c76f1f] flex justify-center items-center text-xl'>
@@ -25,7 +26,7 @@ const UsersStatistics = () => {
                 {/* Total admin */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countAllUsers?.totalAdmin}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#cd00d8" /> : countAllUsers?.totalAdmin}</h2>
                         <span>Admin</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#e000e81f] flex justify-center items-center text-xl'>
@@ -36,7 +37,7 @@ const UsersStatistics = () => {
                 {/* Total Premium User */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countAllUsers?.totalPremiumUser}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#00cfe8" /> : countAllUsers?.totalPremiumUser}</h2>
                         <span>Premium user</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#00cfe81f] flex justify-center items-center text-xl'>
@@ -47,7 +48,7 @@ const UsersStatistics = () => {
                 {/* Total Only user */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countAllUsers?.onlyUser}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#7367f0" /> : countAllUsers?.onlyUser}</h2>
                         <span>Only user</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl'>

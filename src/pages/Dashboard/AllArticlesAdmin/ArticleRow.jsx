@@ -249,7 +249,7 @@ const ArticleRow = ({ article, index, refetch }) => {
                             title='Delete Article'
                             className='py-[2px] px-2 bg-[#ff2929] rounded-sm hover:shadow-lg hover:shadow-[#ff2929]/50 flex flex-row items-center gap-1'><FaTrashAlt />
                         </button>
-                        {isPremium === 'false' ? <button
+                        {isPremium === false ? <button
                             onClick={() => handleMakePremium(_id)}
                             title='Make Premium Article'
                             className='py-[2px] px-1 bg-indigo-500 rounded-sm hover:shadow-lg hover:shadow-indigo-500/50'>Make Premium

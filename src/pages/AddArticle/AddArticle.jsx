@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/LoadingComp/Loader/Loader';
 import { toast } from 'react-toastify';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';

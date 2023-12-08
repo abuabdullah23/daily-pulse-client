@@ -141,19 +141,19 @@ const Navbar = () => {
                                 <div className='flex items-center gap-3 relative'>
                                     <div className='relative'>
                                         <div className='h-9 w-9 rounded-full'>
-                                            <img className='h-full w-full rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={image} alt="user image" />
+                                            <img className='h-full w-full object-cover object-center rounded-full border dark:border-slate-400' title={user?.displayName || user?.email} src={image} alt="user image" />
                                         </div>
                                         {
-                                            isPremiumUser ? <>
-                                                <span onClick={()=> setShowRemaining(!showRemaining)} title='Premium User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-green-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute cursor-pointer'>
+                                            isAdmin ? <span title='Admin' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-purple-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                                <MdAdminPanelSettings className='h-[12px] w-[12px]' />
+                                            </span> : isPremiumUser ? <>
+                                                <span onClick={() => setShowRemaining(!showRemaining)} title='Premium User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-green-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute cursor-pointer'>
                                                     <MdWorkspacePremium className='h-[12px] w-[12px]' />
                                                 </span>
                                                 <div className={`absolute right-0 select-none transition-all duration-300 ${showRemaining === true ? '-bottom-4' : 'bottom-20'}`}>
                                                     <SubscriptionCountdown expirationTime={expiresPremium} />
                                                 </div>
-                                            </> : isAdmin ? <span title='Admin' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-purple-600 text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
-                                                <MdAdminPanelSettings className='h-[12px] w-[12px]' />
-                                            </span> : <span title='User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-[#fca311] text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
+                                            </> : <span title='User' className='p-[3px] text-base border-[2px] border-[#14213d] hover:border-[#fca311] hover:bg-[#14213d] transition-all ease-in-out bg-[#fca311] text-white rounded-full -top-2 -right-2 flex items-center gap-1 absolute'>
                                                 <FaUserCheck className='h-[12px] w-[12px]' />
                                             </span>
                                         }

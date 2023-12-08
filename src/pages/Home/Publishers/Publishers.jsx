@@ -6,7 +6,7 @@ const Publishers = () => {
     const [allPublisher] = useAllPublisher();
 
     return (
-        <div className='mt-16'>
+        <div className='my-16 lg:my-32'>
             <SectionTitle sectionTitle={'All Publisher'} />
 
             <div className='flex flex-wrap justify-center gap-2'>

@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
-import Loader from '../Loader/Loader';
+import Loader from '../LoadingComp/Loader/Loader';
 import usePremiumUser from '../../hooks/premium/usePremiumUser';
 
 const CheckoutForm = ({ amount, period }) => {

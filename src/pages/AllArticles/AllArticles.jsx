@@ -3,7 +3,7 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import ArticleCard from './ArticleCard';
 import newsTags from '../AddArticle/tags';
 import useAllPublisher from '../../hooks/useAllPublisher';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 import { IoReload } from "react-icons/io5";
 
 
@@ -67,7 +67,7 @@ const AllArticles = () => {
 
 
     return (
-        <div className='pb-12'>
+        <div className='pb-12 min-h-screen'>
             <SectionTitle sectionTitle={'All Article'} />
 
             <div className='py-3 px-3 bg-gray-300 dark:bg-slate-900 mb-5 rounded-md flex flex-col lg:flex-row justify-between items-center lg:items-start gap-3 border dark:border-slate-500 transition-all duration-300'>

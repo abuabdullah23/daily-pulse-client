@@ -1,10 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
+import Loader from "../../components/LoadingComp/Loader/Loader";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import loginAnimation from '../../assets/images/lottie/login_animation.json'
-import LottieComp from "../../components/LottieCom/LottieComp";
+import LottieComp from "../../components/LottieComp/LottieComp";
 import BackToHome from "../../components/BackToHome/BackToHome";
 import useAuth from "../../hooks/useAuth";
 import FadeLoader from 'react-spinners/FadeLoader'

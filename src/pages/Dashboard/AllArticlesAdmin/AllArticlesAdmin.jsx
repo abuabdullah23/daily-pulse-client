@@ -2,8 +2,8 @@ import { useState } from 'react';
 import useAllArticle from '../../../hooks/useAllArticle';
 import ArticleRow from './ArticleRow';
 import Pagination from '../../../components/Pagination/Pagination';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import ArticleStatistics from './ArticleStatistics/ArticleStatistics';
+import LoadingSpinner from '../../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 
 const AllArticlesAdmin = () => {
     const [pageNumber, setPageNumber] = useState(1)

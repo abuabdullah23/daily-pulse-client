@@ -2,9 +2,10 @@ import { MdArticle, MdWorkspacePremium } from "react-icons/md";
 import { TbProgress } from "react-icons/tb";
 import { GoCheckCircleFill } from "react-icons/go";
 import useCountAllArticle from "../../../../hooks/adminHooks/useCountArticles";
+import PuffLoader from 'react-spinners/PuffLoader';
 
 const ArticleStatistics = () => {
-    const { countArticles } = useCountAllArticle();
+    const { countArticles, isLoading } = useCountAllArticle();
 
     return (
         <div>
@@ -14,7 +15,7 @@ const ArticleStatistics = () => {
                 {/* Total article */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countArticles?.totalArticle}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#28c76f" /> : countArticles?.totalArticle}</h2>
                         <span>Total article</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#28c76f1f] flex justify-center items-center text-xl'>
@@ -25,7 +26,7 @@ const ArticleStatistics = () => {
                 {/* Total Pending Article */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countArticles?.totalPending}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#cd00d8" /> : countArticles?.totalPending}</h2>
                         <span>Pending Article</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#e000e81f] flex justify-center items-center text-xl'>
@@ -36,7 +37,7 @@ const ArticleStatistics = () => {
                 {/* Total approved article */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countArticles?.totalApproved}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#00cfe8" /> : countArticles?.totalApproved}</h2>
                         <span>Approved article</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl'>
@@ -47,7 +48,7 @@ const ArticleStatistics = () => {
                 {/* Total Premium article */}
                 <div className='flex justify-between items-center p-5 bg-[#283046] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#d0d2d6]'>
-                        <h2 className='text-3xl font-bold'>{countArticles?.totalPremium}</h2>
+                        <h2 className='text-3xl font-bold'>{isLoading ? <PuffLoader size={40} color="#7367f0" /> : countArticles?.totalPremium}</h2>
                         <span>Premium article</span>
                     </div>
                     <div className='w-[46px] h-[46px] rounded-full bg-[#00cfe81f] flex justify-center items-center text-xl'>

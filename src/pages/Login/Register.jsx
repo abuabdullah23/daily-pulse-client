@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LottieComp from '../../components/LottieCom/LottieComp';
+import LottieComp from '../../components/LottieComp/LottieComp';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/LoadingComp/Loader/Loader';
 import BackToHome from '../../components/BackToHome/BackToHome';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import registerAnimation from '../../assets/images/lottie/register_animation.json'

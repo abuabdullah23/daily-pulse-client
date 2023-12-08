@@ -12,7 +12,7 @@ const Card = ({ article }) => {
 
     // navigate to details page
     const handleNavigateDetailsPage = (id) => {
-        if (isPremium === 'true') {
+        if (isPremium === true) {
             navigate(`/premium-article-details/${id}`)
         } else {
             navigate(`/approved-article-details/${id}`)
@@ -20,7 +20,7 @@ const Card = ({ article }) => {
     }
 
     return (
-        <div className={`flex flex-col gap-2 lg:gap-5 mt-5 group rounded-md relative ${isPremium === 'true' ? 'border-2 border-green-500' : 'border-2 border-slate-400'}`}>
+        <div className={`flex flex-col gap-2 lg:gap-5 mt-5 group rounded-md relative ${isPremium === true ? 'border-2 border-green-500' : 'border-2 border-slate-400'}`}>
             <div className='w-full h-32 md:h-48 lg:h-[180px] transition-all duration-300'>
                 <img title={`${views} views`} className='w-full h-full rounded-t-md object-cover' src={image} alt="Product image" />
             </div>
@@ -37,13 +37,13 @@ const Card = ({ article }) => {
             </div>
 
             {
-                isPremium === 'true' && <span className='py-[2px] px-1 w-fit text-base bg-green-600 shadow-md shadow-green-700/50 text-white rounded-xs flex items-center gap-1 absolute right-2 top-2'>
+                isPremium === true && <span className='py-[2px] px-1 w-fit text-base bg-green-600 shadow-md shadow-green-700/50 text-white rounded-xs flex items-center gap-1 absolute right-2 top-2'>
                     <MdWorkspacePremium className='h-[16px] w-[16px]' />
                     <span>Premium Article</span>
                 </span>
             }
 
-            <div className={`w-full flex flex-col gap-3 ${isPremium === 'true' ? 'pb-2 px-4' : 'pb-2 px-4'}`}>
+            <div className={`w-full flex flex-col gap-3 ${isPremium === true ? 'pb-2 px-4' : 'pb-2 px-4'}`}>
 
                 <h2 className='text-lg font-semibold text-slate-600 dark:text-gray-300'>{title.slice(0, 30)}...</h2>
 
@@ -60,7 +60,7 @@ const Card = ({ article }) => {
 
                 <div className='flex items-center justify-end'>
                     <button
-                        disabled={!isAdmin && (!isPremiumUser && isPremium === 'true')}
+                        disabled={!isAdmin && (!isPremiumUser && isPremium === true)}
                         onClick={() => handleNavigateDetailsPage(_id)} className='rounded border-l-4 border-slate-400 hover:border-[#203c79] dark:hover:border-[#1835b4] px-2 bg-[#203c79] font-semibold w-fit hover:bg-transparent text-white hover:text-slate-700 dark:hover:text-[#fca311] transition-all duration-500'>
                         view details
                     </button>

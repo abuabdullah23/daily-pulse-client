@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import useAuth from '../../../hooks/useAuth';
 import Pagination from '../../../components/Pagination/Pagination';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 import UsersStatistics from './UsersStatistics';
 import useCountAllUser from '../../../hooks/adminHooks/useCountUsers';
 
@@ -130,7 +130,7 @@ const AllUsers = () => {
                                             allUser.map((u, i) => <tr key={i}>
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
 
-                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-contain border rounded border-blue-800' src={u?.image} alt="publisher image" /></td>
+                                                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><img className='h-11 w-11 object-cover object-center border rounded border-blue-800' src={u?.image} alt="publisher image" /></td>
 
                                                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'><span>{u?.email}</span></td>
 

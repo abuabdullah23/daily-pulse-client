@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { IoMdPricetag } from 'react-icons/io';
 import { MdWorkspacePremium } from 'react-icons/md';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../LoadingComp/LoadingSpinner/LoadingSpinner';
 import useAuth from '../../hooks/useAuth';
 import useAdmin from '../../hooks/useAdmin';
 
@@ -64,7 +64,7 @@ const ArticleDetails = ({ article, isLoading }) => {
 
                         <div className='py-1 whitespace-nowrap text-white'>
                             {
-                                isPremium === 'true' && <p title='Premium Article'
+                                isPremium === true && <p title='Premium Article'
                                     className='py-[2px] px-2 bg-green-500 rounded-sm flex items-center gap-1 text-[14px]'>
                                     <MdWorkspacePremium className='text-base' />
                                     <span>premium</span>

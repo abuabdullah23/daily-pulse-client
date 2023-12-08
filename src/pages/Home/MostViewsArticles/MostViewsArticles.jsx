@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getTrendingArticles } from '../../../api/article';
 import Card from './Card';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 
 const MostViewsArticles = () => {
     const [articles, setArticles] = useState([]);

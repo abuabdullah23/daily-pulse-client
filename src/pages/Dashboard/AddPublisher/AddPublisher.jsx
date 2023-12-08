@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Loader from '../../../components/Loader/Loader';
-import { Link } from 'react-router-dom';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BsImage } from 'react-icons/bs';
@@ -9,7 +7,8 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import useAllPublisher from '../../../hooks/useAllPublisher';
 import Swal from 'sweetalert2';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
+import Loader from '../../../components/LoadingComp/Loader/Loader';
 
 const AddPublisher = () => {
     const [show, setShow] = useState(false);

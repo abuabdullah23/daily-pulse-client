@@ -69,7 +69,7 @@ const SingleRow = ({ article, index, refetch }) => {
 
             <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap text-white'>
                 {
-                    isPremium === 'true'
+                    isPremium === true
                         ? <p className='py-0.5 px-2 bg-green-500 rounded w-fit flex items-center gap-2'><BsCheck className='text-xl' /> <span>Yes</span> </p>
                         : <span className='py-0.5 px-2 bg-[#ffd104] rounded text-slate-700'>No</span>
                 }
@@ -114,8 +114,8 @@ const SingleRow = ({ article, index, refetch }) => {
                         </Link>
                         <button
                             onClick={() => handleDeleteMyArticle(_id)}
-                            title={isPremium === 'true' || articleStatus === 'approved' ? 'You can not delete this article' : 'Delete Article'}
-                            disabled={isPremium === 'true' || articleStatus === 'approved' ? true : false}
+                            title={isPremium === true || articleStatus === 'approved' ? 'You can not delete this article' : 'Delete Article'}
+                            disabled={isPremium === true || articleStatus === 'approved' ? true : false}
                             className='py-[2px] px-2 bg-[#ff2929] rounded-sm hover:shadow-lg hover:shadow-[#ff2929]/50 flex flex-row items-center gap-1'><FaTrashAlt /> <span>delete</span>
                         </button>
 

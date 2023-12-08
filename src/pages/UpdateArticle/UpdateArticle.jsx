@@ -5,10 +5,10 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import useAllPublisher from '../../hooks/useAllPublisher';
 import Select from 'react-select';
 import newsTags from '../AddArticle/tags';
-import Loader from '../../components/Loader/Loader';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { imageUpload } from '../../utils/imageUpload';
 import { toast } from 'react-toastify';
+import Loader from '../../components/LoadingComp/Loader/Loader';
 
 const UpdateArticle = () => {
     const { id } = useParams();

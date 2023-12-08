@@ -19,7 +19,7 @@ const CountUpUser = () => {
     ]
 
     return (
-        <div className='mt-16'>
+        <div className='my-16 lg:my-32'>
             <SectionTitle sectionTitle={'Our Users'} />
             <div className='border-2 border-[#fca311] text-[#14213d] dark:text-gray-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-4 rounded-md -mt-8'>
 
@@ -29,7 +29,7 @@ const CountUpUser = () => {
                             <ScrollTrigger onEnter={() => setCounterOn(true)} onExit={() => setCounterOn(false)}>
                                 <div className='flex flex-col items-center gap-1'>
                                     {
-                                        counterOn && <CountUp className='text-3xl font-bold' start={0} end={c?.count} duration={3} delay={0} />
+                                        counterOn && <CountUp className='text-3xl font-bold' start={0} end={c?.count} duration={2} delay={0} />
                                     }
                                     <h2 className='text-lg font-thin'>{c?.label}</h2>
                                 </div>

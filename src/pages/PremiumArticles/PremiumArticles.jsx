@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useGetPremiumArticles from '../../hooks/premium/useGetPremiumArticles';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingComp/LoadingSpinner/LoadingSpinner';
 
 const PremiumArticles = () => {
     const { premiumArticles, refetch, isLoading } = useGetPremiumArticles();
@@ -13,8 +13,10 @@ const PremiumArticles = () => {
         navigate(`/premium-article-details/${id}`)
     }
 
+    console.log(premiumArticles);
+
     return (
-        <div className='pb-8'>
+        <div className='pb-8 min-h-screen'>
             {isLoading ? <LoadingSpinner /> : <>
                 <SectionTitle sectionTitle={'Premium Articles'} />
 
