@@ -5,11 +5,16 @@
 
 **Live site link:** https://daily-pulse-client.web.app
 
+
+## Overview
+
+![screenshot](./src/assets/images/screencapture-daily-pulse-client-web-app-2023-12-09-15_15_38.png)
+
 <br />
 
 ## Website Feature:
 
-**Trip Thrive** is a e-newspaper website for any person. Here is explain our some website features.
+**Daily Pulse** is a e-newspaper website for any person. Here is explain our some website features.
 
 * All type of users can visit this website, and they can read free news after login.
 * In our has a premium articles page. If user is normal user, and he/she try to go premium articles page, from authentication system send him to subscription page. 

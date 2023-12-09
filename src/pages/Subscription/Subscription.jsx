@@ -73,8 +73,8 @@ const Subscription = () => {
                     <label className='font-semibold mr-4' htmlFor="">Select Period: </label>
                     <select onChange={(e) => setAmount(e.target.value)} className='py-2 px-2 border text-slate-600 dark:text-gray-100 bg-transparent dark:bg-[#101b33] border-indigo-400 focus:border-indigo-500 rounded outline-none'>
                         <option value="">--select--</option>
-                        {subscriptionOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
+                        {subscriptionOptions.map((option, i) => (
+                            <option key={i} value={option.value}>
                                 {option.label}
                             </option>
                         ))}
